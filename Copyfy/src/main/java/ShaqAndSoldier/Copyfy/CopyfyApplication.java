@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CopyfyApplication {
 
 	public static void main(String[] args) {
-            System.out.println("fasz");
+            System.out.println("gecc");
 		SpringApplication.run(CopyfyApplication.class, args);
 	}
 }
