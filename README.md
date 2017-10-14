@@ -7,7 +7,7 @@ Zenés alkalmazás (Copyfy): <br/>
 -Admin felhasználó, mindent törölhet, felhasználókat bannolhat. <br/>
 -Lejátszási lista. (nem továbbosztható) <br/>
 
-Ha marad idő:
+Ha marad idő:<br/>
 -Toplista kedvencek alapján, hallgatás alapján.
 
 Adatbázis model:
