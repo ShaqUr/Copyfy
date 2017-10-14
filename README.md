@@ -12,20 +12,20 @@ Ha marad idő:
 
 Adatbázis model:
 
-User tábla
+User tábla<br/>
 ID Username PW Banned 
 
-Song tábla
+Song tábla<br/>
 ID Name Tags access
 
-Tags tábla
+Tags tábla<br/>
 Tags
 
-Rights tábla
-uID sID Delete Share Listen (sok-sok)
+Rights tábla (sok-sok)<br/>
+uID sID Delete Share Listen 
 
-PlayList song kapcsoló tábla (1-sok)
+PlayList song kapcsoló tábla (1-sok)<br/>
 plID sID
 
-PlayList user kapcsoló tábla
+PlayList user kapcsoló tábla <br/>
 plID uID
