@@ -1,11 +1,11 @@
 # Copyfy
 Zenés alkalmazás (Copyfy):
--Regisztrációs, beléptető, feltöltő, hangfájllistás, lejátszásilistás, beállítások felület.
--Felhasználók feltöltik a hangfájlokat, melyek lehetnek privátok, vagy publikusak.
--Kereső kulcsszavakkal, előadókkal, címekkel.
--Felhasználók megoszthatják egymással a privát zenéiket. (Jogok. D/S/L )
--Admin felhasználó, mindent törölhet, felhasználókat bannolhat.
--Lejátszási lista. (nem továbbosztható)
+-Regisztrációs, beléptető, feltöltő, hangfájllistás, lejátszásilistás, beállítások felület. <br/>
+-Felhasználók feltöltik a hangfájlokat, melyek lehetnek privátok, vagy publikusak. <br/>
+-Kereső kulcsszavakkal, előadókkal, címekkel. <br/>
+-Felhasználók megoszthatják egymással a privát zenéiket. (Jogok. D/S/L ) <br/>
+-Admin felhasználó, mindent törölhet, felhasználókat bannolhat. <br/>
+-Lejátszási lista. (nem továbbosztható) <br/>
 
 Ha marad idő:
 -Toplista kedvencek alapján, hallgatás alapján.
