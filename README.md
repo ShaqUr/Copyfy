@@ -1,5 +1,5 @@
 # Copyfy
-Zenés alkalmazás (Copyfy):
+Zenés alkalmazás (Copyfy): <br/>
 -Regisztrációs, beléptető, feltöltő, hangfájllistás, lejátszásilistás, beállítások felület. <br/>
 -Felhasználók feltöltik a hangfájlokat, melyek lehetnek privátok, vagy publikusak. <br/>
 -Kereső kulcsszavakkal, előadókkal, címekkel. <br/>
