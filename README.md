@@ -12,11 +12,11 @@ Ha marad idő:<br/>
 
 Adatbázis model:
 
-User tábla<br/>
-ID Username PW Banned 
+Users tábla<br/>
+ID Username PW Role 
 
-Song tábla<br/>
-ID Name Tags access
+Songs tábla<br/>
+ID Title Tags Access
 
 Tags tábla<br/>
 Tags
