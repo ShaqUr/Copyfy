@@ -25,7 +25,7 @@ Rights tábla (sok-sok)<br/>
 ID uID sID Delete Share Listen 
 
 PlayList song kapcsoló tábla (1-sok)<br/>
-plID sID
+ID plID sID
 
 PlayList user kapcsoló tábla <br/>
-plID uID
+ID plID uID
