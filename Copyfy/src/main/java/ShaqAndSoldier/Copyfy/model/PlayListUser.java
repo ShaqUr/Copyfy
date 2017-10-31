@@ -17,26 +17,16 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "RIGHTS")
+@Table(name = "PlayListUser")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Right extends BaseEntity {
-
+public class PlayListUser extends BaseEntity{
+    
+    @Column(nullable = false, unique = true)
+    private String plID;
+    
     @Column(nullable = false, unique = true)
     private String uID;
-    
-    @Column(nullable = false, unique = true)
-    private String sID;
-
-    @Column(nullable = false)
-    private boolean delete;
-
-    @Column(nullable = false)
-    private boolean share;
-    
-    @Column(nullable = false)
-    private boolean listen;
-    
 }
