@@ -7,7 +7,7 @@ package ShaqAndSoldier.Copyfy.model;
 
 /**
  *
- * @author kjdav
+ * @author kjdavid <kjdavid96 at gmail.com>
  */
 import lombok.Data;
 
