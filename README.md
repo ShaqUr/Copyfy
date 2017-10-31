@@ -22,7 +22,7 @@ Tags tábla<br/>
 Tags
 
 Rights tábla (sok-sok)<br/>
-uID sID Delete Share Listen 
+ID uID sID Delete Share Listen 
 
 PlayList song kapcsoló tábla (1-sok)<br/>
 plID sID
