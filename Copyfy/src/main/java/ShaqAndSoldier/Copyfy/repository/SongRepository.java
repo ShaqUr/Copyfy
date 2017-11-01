@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Repository
 public interface SongRepository extends CrudRepository<Song, String> {
-    Optional<Song> findById(String tags);
+    Optional<Song> findByTags(String tags);
 
     Optional<Song> findByTitle(String title);
 
