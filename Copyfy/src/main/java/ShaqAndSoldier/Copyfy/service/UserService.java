@@ -1,7 +1,7 @@
 package ShaqAndSoldier.Copyfy.service;
 
 import ShaqAndSoldier.Copyfy.model.User;
-import ShaqAndSoldier.Copyfy.repo.UserRepo;
+import ShaqAndSoldier.Copyfy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     @Autowired
-    private UserRepo userRepoitory;
+    private UserRepository userRepoitory;
 
     public void register(User user) {
         userRepoitory.save(user);

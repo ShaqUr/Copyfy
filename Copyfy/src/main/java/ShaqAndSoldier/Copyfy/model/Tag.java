@@ -26,6 +26,6 @@ public class Tag {
 
     @Column(nullable = false, unique = true)
     @Id
-    private String Tags;
+    private String tags;
     
 }

@@ -17,10 +17,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface SongRepository extends CrudRepository< Song, String> {
-    Optional<Song> findByTag(String tags);
+public interface SongRepository extends CrudRepository<Song, String> {
+    Optional<Song> findById(String tags);
 
     Optional<Song> findByTitle(String title);
 
-    Optional<Song> findbyAccess(Access access); // Should only work if the access is public.
+    Optional<Song> findByAccess(Access access); // Should only work if the access is public.*/
 }
