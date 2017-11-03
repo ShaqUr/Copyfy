@@ -9,6 +9,8 @@ package ShaqAndSoldier.Copyfy.model;
  *
  * @author kjdavid <kjdavid96 at gmail.com>
  */
+import java.util.HashSet;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,5 +42,8 @@ public class User extends BaseEntity {
     public enum Role {
         USER, ADMIN, BANNED
     }
+    
+    @OneToMany(targetEntity = Playlist.class)
+    private Set<Playlist> Playlists=new HashSet();
 }
 

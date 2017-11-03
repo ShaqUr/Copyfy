@@ -13,6 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -27,11 +29,11 @@ public class Song extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String title;
 
-    @Column(nullable = false)
-    private String tags;
+    @ManyToMany(targetEntity= Tag.class)
+    private Set<Tag> tags=new HashSet();
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private Access access;
 
     public enum Access {

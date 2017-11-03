@@ -21,11 +21,10 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode()
-public class Tag {
+@EqualsAndHashCode(callSuper = true)
+public class Tag extends BaseEntity{
 
-    @Column(nullable = false, unique = true)
-    @Id
-    private String tags;
+    @Column(nullable = false)
+    private String tag;
     
 }

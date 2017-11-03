@@ -9,6 +9,8 @@ package ShaqAndSoldier.Copyfy.model;
  *
  * @author kjdavid <kjdavid96 at gmail.com>
  */
+import java.util.HashSet;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,16 +19,16 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PlayListSong")
+@Table(name = "Playlists")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class PlayListSong extends BaseEntity{
+@EqualsAndHashCode(callSuper= true)
+public class Playlist extends BaseEntity{
     
-    @Column(nullable = false, unique = true)
-    private String plID;
+    @Column(nullable = false)
+    private String name;
     
-    @Column(nullable = false, unique = true)
-    private String sID;
+    @ManyToMany(targetEntity = Song.class)
+    private Set<Song> songs=new HashSet();
 }
