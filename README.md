@@ -12,20 +12,26 @@ Ha marad idő:<br/>
 
 Adatbázis model:
 
-Users tábla<br/>
-ID Username PW Role 
+USERS tábla<br/>
+ID VERSION USERNAME EMAIL PASSWORD ROLE 
 
-Songs tábla<br/>
-ID Title Tags Access
+SONGS tábla<br/>
+ID VERSION TITLE ACCESS
 
-Tags tábla<br/>
-Tags
+SONGS_TAGS kapcsoló tábla (sok-sok)<br/>
+SONG_ID TAGS_ID
 
-Rights tábla (sok-sok)<br/>
-ID uID sID Delete Share Listen 
+TAGS tábla<br/>
+ID VERSION TAG
 
-PlayList song kapcsoló tábla (1-sok)<br/>
-ID plID sID
+RIGHTS tábla<br/>
+ID VERSION UID SID DELETE SHARE LISTEN 
 
-PlayList user kapcsoló tábla <br/>
-ID plID uID
+PLAYLISTS<br/>
+ID VERSION NAME
+
+PLAYLISTS_SONGS kapcsoló tábla (sok-sok)<br/>
+PLAYLIST_ID SONGS_ID
+
+USERS_PLAYLISTS kapcsoló tábla (1-sok)<br/>
+USER_ID PLAYLISTS_ID
