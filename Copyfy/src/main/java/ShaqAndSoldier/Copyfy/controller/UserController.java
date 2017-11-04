@@ -3,12 +3,9 @@ package ShaqAndSoldier.Copyfy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import ShaqAndSoldier.Copyfy.model.User;
-import ShaqAndSoldier.Copyfy.model.User.Role;
-import static ShaqAndSoldier.Copyfy.model.User.Role.USER;
 import ShaqAndSoldier.Copyfy.service.UserService;
 /**
  * @author Aram
@@ -35,6 +32,10 @@ public class UserController {
     @PostMapping("/login")
     public String login(@ModelAttribute User user, Model model) {
         if (userService.isValid(user)) {
+            if(userService.isBanned(user)){
+                model.addAttribute("userBanned", true);
+                return "login";
+            }
             return redirectToGreeting(user);
         }
         model.addAttribute("loginFailed", true);
@@ -49,7 +50,6 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute User user) {
-        user.setRole(USER);
         userService.register(user);
 
         return redirectToGreeting(user);
