@@ -11,6 +11,8 @@
     </head>
     <body>
         <h1>Register</h1>
+        <h2 th:if="${usernameInUse}">Username is already in use!</h2>
+        <h2 th:if="${emailInUse}">Email address is already in use!</h2>
         <form action="#" th:action="@{/user/register}" th:object="${user}" method="post">
             <div id="username">
                 <label for="username">Username:</label>

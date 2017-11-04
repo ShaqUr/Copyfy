@@ -49,7 +49,15 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user) {
+    public String register(@ModelAttribute User user, Model model) {
+        if(userService.isUsernameInUse(user)){
+            model.addAttribute("usernameInUse", true);
+            return "register";
+        }
+        if(userService.isEmailInUse(user)){
+            model.addAttribute("emailInUse", true);
+            return "register";
+        }
         userService.register(user);
 
         return redirectToGreeting(user);

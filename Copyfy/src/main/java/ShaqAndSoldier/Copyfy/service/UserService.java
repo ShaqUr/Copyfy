@@ -40,6 +40,9 @@ public class UserService {
     public boolean isUsernameInUse(User user){
         return userRepository.findByUsername(user.getUsername()).isPresent();
     }
+    public boolean isEmailInUse(User user){
+        return userRepository.findByEmail(user.getEmail()).isPresent();
+    }
     public boolean isLoggedIn() {
         return user != null;
     }
