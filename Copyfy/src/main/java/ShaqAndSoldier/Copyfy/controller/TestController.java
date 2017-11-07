@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/test")
 public class TestController {
-    @GetMapping("/field")
+    @GetMapping("/upload")
     public String testField() {
-        return "testfield";
+        return "upload";
     }
 }   
