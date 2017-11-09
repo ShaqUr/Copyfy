@@ -1,4 +1,17 @@
-<form action="http://localhost:8080/upload" method="post" enctype="multipart/form-data">
-	<input name="file" id="filename" type="file" /><br><br>
-	<button name="submit" type="submit">Upload</button>
-</form>
+<!DOCTYPE HTML>
+    <html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+        <head>
+            <title>Upload</title> 
+        </head>
+        <body>
+            <form action="http://localhost:8080/FileUpload/upload" method="post" enctype="multipart/form-data">
+                <input name="file" id="filename" type="file" /><br></br>
+                 <button name="submit" type="submit">Upload</button>
+            </form>
+        </body>
+        </html>
+
