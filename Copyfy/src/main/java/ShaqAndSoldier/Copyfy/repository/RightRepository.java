@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RigthRepository extends CrudRepository<Right, String> {
+public interface RightRepository extends CrudRepository<Right, String> {
     Optional<Right> findByUID(String id);
 
     Optional<Right> findBySID(String id);

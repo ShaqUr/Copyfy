@@ -19,8 +19,13 @@ public class UserController {
 
     @GetMapping("/greet")
     public String greeting(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
+        //if(userService.UserLoggedIn(name)){
+            model.addAttribute("name", name);
+            return "greeting";
+        /*}else{
+            model.addAttribute("illegalLogin", true);
+            return "greeting";
+        }*/
     }
 
     @GetMapping("/login")
@@ -34,6 +39,7 @@ public class UserController {
         if (userService.isValid(user)) {
             if(userService.isBanned(user)){
                 model.addAttribute("userBanned", true);
+                //userService.setLoggedIn(user);
                 return "login";
             }
             return redirectToGreeting(user);

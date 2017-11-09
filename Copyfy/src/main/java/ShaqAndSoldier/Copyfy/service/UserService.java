@@ -16,9 +16,13 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-
+    //private User loggedIn;
     private User user;
     
+    /*public void setLoggedIn(User userLogged){
+        this.loggedIn=userRepository.findByUsername(userLogged.getUsername()).get();
+    }
+    */
     public User login(User user) throws UserNotValidException {
         if (isValid(user)) {
             return this.user = userRepository.findByUsername(user.getUsername()).get();
@@ -46,4 +50,7 @@ public class UserService {
     public boolean isLoggedIn() {
         return user != null;
     }
+    /*public boolean UserLoggedIn(String user){
+        return this.loggedIn.equals(userRepository.findByUsername(user));
+    }*/
 }
