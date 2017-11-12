@@ -16,11 +16,10 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    public static User loggedIn;
+    public User loggedIn;
     private User user;
     
     public void setLoggedIn(User userLogged){
-        System.out.println("IDE NEZZZZ: " + userRepository.findByUsername(userLogged.getUsername()).get());
         loggedIn=userRepository.findByUsername(userLogged.getUsername()).get();
     }
     
@@ -49,9 +48,9 @@ public class UserService {
         return userRepository.findByEmail(user.getEmail()).isPresent();
     }
     public boolean isLoggedIn() {
-        return user != null;
+        return loggedIn != null;
     }
-    public boolean UserLoggedIn(String user){
-        return this.loggedIn.equals(userRepository.findByUsername(user));
+    public boolean isUserLoggedIn(String username){
+        return loggedIn.getUsername().equals(username);
     }
 }

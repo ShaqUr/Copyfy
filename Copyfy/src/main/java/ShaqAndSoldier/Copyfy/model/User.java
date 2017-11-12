@@ -44,7 +44,7 @@ public class User extends BaseEntity {
         USER, ADMIN, BANNED
     }
     
-    @OneToMany(targetEntity = Playlist.class)
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Playlist.class)
     private Set<Playlist> Playlists=new HashSet();
 }
 

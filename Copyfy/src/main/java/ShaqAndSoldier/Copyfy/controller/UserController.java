@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/greet")
     public String greeting(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
-        if(userService.UserLoggedIn(name)){
+        if(userService.isUserLoggedIn(name)){
             model.addAttribute("name", name);
             return "greeting";
         }else{
