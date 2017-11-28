@@ -41,7 +41,7 @@ public class User extends BaseEntity {
     private Role role;
 
     public enum Role {
-        USER, ADMIN, BANNED
+        USER, ADMIN, BANNED, GUEST
     }
     
     @OneToMany(fetch = FetchType.EAGER, targetEntity = Playlist.class)

@@ -5,22 +5,26 @@ import ShaqAndSoldier.Copyfy.model.User.Role;
 import static ShaqAndSoldier.Copyfy.model.User.Role.USER;
 import ShaqAndSoldier.Copyfy.repository.UserRepository;
 import ShaqAndSoldier.Copyfy.service.exceptions.UserNotValidException;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 /**
  *
  * @author Aram
  */
+
 @Service
+@SessionScope
+@Data
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    public User loggedIn;
     private User user;
     
     public void setLoggedIn(User userLogged){
-        loggedIn=userRepository.findByUsername(userLogged.getUsername()).get();
+        user=userRepository.findByUsername(userLogged.getUsername()).get();
     }
     
     public User login(User user) throws UserNotValidException {
@@ -48,9 +52,9 @@ public class UserService {
         return userRepository.findByEmail(user.getEmail()).isPresent();
     }
     public boolean isLoggedIn() {
-        return loggedIn != null;
+        return user != null;
     }
     public boolean isUserLoggedIn(String username){
-        return loggedIn.getUsername().equals(username);
+        return user.getUsername().equals(username);
     }
 }
