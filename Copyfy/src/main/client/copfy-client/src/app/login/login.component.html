@@ -1,8 +1,16 @@
+<app-header></app-header>
 <div class="login">
   <form>
-    <input tpye="text" placeholder="Felhasználónév">
-    <input type="password" placeholder="Jelszó">
-    <input type="submit" value="Bejelentkezés">
+    <div id="username">
+      <label for="username">Felhasználónév:</label>
+      <input type="text" name="username" placeholder="username" th:field="*{username}" />
+    </div>
+    <div id="password">
+      <label for="password">Jelszó:</label>
+      <input type="password" name="password" placeholder="password" th:field="*{password}" />
+    </div>
+    <input type="submit" value="Belépek!" />
+    <button type="reset">Törlés</button>
   </form>
-  <div>Nincs még felhasználója? <a routerLink="registration">Regisztáljon itt!</a></div>
+  <div>Még nincs felhasználója? <a routerLink="../registration">Regisztáljon itt!</a></div>
 </div>
