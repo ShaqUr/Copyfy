@@ -1,0 +1,38 @@
+#header{
+    background-color: #3a3a3a;
+    height: 70px;
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    line-height :70px;
+    color: #e0e0e0;
+}
+#header table{
+    display:flex;
+    padding-top:5px;
+    line-height:0px;
+}
+#header div{
+    display:inline-block;
+    font-size: 1.3em;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.link a{
+    text-decoration: none;
+    background-color:#3a3a3a;
+    color: #e0e0e0;
+}
+.link{
+    background-color:#3a3a3a;
+    color: #e0e0e0;
+}
+:hover.link a{
+    text-decoration: none;
+    background-color: #e0e0e0;
+    color: #3a3a3a;
+}
+:hover.link{
+    background-color: #e0e0e0;
+    color: #3a3a3a;
+}

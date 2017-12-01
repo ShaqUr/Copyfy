@@ -1,6 +1,28 @@
-<div class="header">
-  <a routerLink="/index" >Főoldal</a>
-  <a routerLink="/login" >Bejelentkezés</a>
-  <a routerLink="/registration">Regisztráció</a>
+<div id="header">
+  <div class="link"><a routerLink="/index" >Főoldal</a></div>
+  <div class="link" *ngIf="!isLoggedIn()"><a routerLink="/login" >Bejelentkezés</a></div>
+  <div class="link" *ngIf="!isLoggedIn()"><a routerLink="/registration">Regisztráció</a></div>
+  <div class="link" *ngIf="isLoggedIn()"><a routerLink="/user/songs">Zenék</a></div>
+  <div class="link" *ngIf="isLoggedIn()"><a routerLink="/user/playlists">Lejátszási listáim</a></div>
+  <div><form #form="ngForm" (submit)="onSubmit()" *ngIf="isLoggedIn()">
+      <table id="searchComponent"><tr><td>
+          <label for="search">Keresés:</label>
+          <input type="text"
+                 name="search"/></td>
+          <td><input type="radio"
+                 name="object"
+                 value="song"/>Felhasználó
+              </td>
+        </tr>
+        <tr><td>
+            <input type="submit" value="Keresés" />
+        </td><td>
+          <input type="radio"
+          name="object"
+          value="user"/>
+        Zene</td>
+        </tr>
+      
+      </table>
+      </form></div>
 </div>
-

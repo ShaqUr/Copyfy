@@ -12,7 +12,9 @@ export class AuthService {
   constructor(
     private http: Http,
   ) { }
-
+  public isLoggedIn(): boolean{
+    return (this.user!==undefined);
+  }
   public login(user: User): Promise<User> {
     const response$: Observable<any> = this.http.post('/api/user/login', user);
     const responsePromise: Promise<any> = response$.toPromise();
