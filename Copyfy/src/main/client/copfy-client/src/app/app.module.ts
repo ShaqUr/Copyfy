@@ -7,9 +7,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
-import { LoginService } from 'app/login.service';
 import { IndexComponent } from './index/index.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { AuthService } from 'app/auth.service';
+import { RegisterService } from 'app/register.service';
 
 const appRoutes : Routes = [
   {path: 'login', component: LoginComponent},
@@ -34,7 +35,7 @@ const appRoutes : Routes = [
       appRoutes, {enableTracing: true}
     )
   ],
-  providers: [LoginService],
+  providers: [AuthService, RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

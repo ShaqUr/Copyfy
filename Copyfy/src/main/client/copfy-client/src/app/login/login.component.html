@@ -1,16 +1,29 @@
 <app-header></app-header>
 <div class="login">
-  <form>
-    <div id="username">
+  <form #form="ngForm" (submit)="onSubmit()">
+    <div *ngIf="validationMessage">{{validationMessage}}</div>
+    <div class="form-group">
       <label for="username">Felhasználónév:</label>
-      <input type="text" name="username" placeholder="username" th:field="*{username}" />
+      <input type="text"
+             required
+             name="username" [(ngModel)]="model.username"
+             #username="ngModel" />
+      <div *ngIf="username.invalid && username.touched" >
+        <span *ngIf="username.errors.required">Kötelező mező</span>
+      </div>
     </div>
-    <div id="password">
+    <div class="form-group">
       <label for="password">Jelszó:</label>
-      <input type="password" name="password" placeholder="password" th:field="*{password}" />
+      <input type="password"
+             required
+             name="password" [(ngModel)]="model.password"
+             #password="ngModel" />
+      <div *ngIf="password.invalid && password.touched" >
+        <span *ngIf="password.errors.required">Kötelező mező</span>
+      </div>
     </div>
-    <input type="submit" value="Belépek!" />
-    <button type="reset">Törlés</button>
+    <input type="submit" value="Bejelentkezés" />
+    <input type="reset" value="Törlés" />
   </form>
   <div>Még nincs felhasználója? <a routerLink="../registration">Regisztáljon itt!</a></div>
 </div>

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-
-import {LoginService} from '../login.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../user';
+import { AuthService } from '../auth.service';
+import { Observable } from 'rxjs/observable';
 
 @Component({
   selector: 'app-login',
@@ -9,11 +11,34 @@ import {LoginService} from '../login.service';
 })
 export class LoginComponent implements OnInit {
 
+  model: User;
+  validationMessage: string;
+
+  @ViewChild('form') form;
+
   constructor(
-    public loginService : LoginService
-  ) { }
+    private authService: AuthService,
+    private router: Router,
+  ) {
+    this.model = {
+      "username": '',
+      "password": '',
+    };
+  }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    if (this.form.valid) {
+      this.authService.login(this.model)
+        .then(() => {
+          this.router.navigateByUrl('/index');
+        })
+        .catch(() => {
+          this.validationMessage = 'Nem sikerült bejelentkezni';
+        });
+    }
   }
 
 }

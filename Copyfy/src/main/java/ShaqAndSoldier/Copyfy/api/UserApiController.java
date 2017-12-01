@@ -11,6 +11,7 @@ import static ShaqAndSoldier.Copyfy.model.User.Role.USER;
 import ShaqAndSoldier.Copyfy.service.UserService;
 import ShaqAndSoldier.Copyfy.service.annotations.Role;
 import ShaqAndSoldier.Copyfy.service.exceptions.UserNotValidException;
+import ShaqAndSoldier.Copyfy.service.exceptions.UsernameOrEmailInUseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,6 +58,11 @@ public class UserApiController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
-        return ResponseEntity.ok(userService.register(user));
+        try{
+            return ResponseEntity.ok(userService.register(user));
+        }catch(UsernameOrEmailInUseException e){
+            return ResponseEntity.badRequest().build();
+        }
+        
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import ShaqAndSoldier.Copyfy.model.User;
 import ShaqAndSoldier.Copyfy.service.UserService;
+import ShaqAndSoldier.Copyfy.service.exceptions.UsernameOrEmailInUseException;
 /**
  * @author Aram
  */
@@ -64,8 +65,9 @@ public class UserController {
             model.addAttribute("emailInUse", true);
             return "register";
         }
+        try{
         userService.register(user);
-
+        }catch(UsernameOrEmailInUseException e){};
         return redirectToGreeting(user);
     }
 

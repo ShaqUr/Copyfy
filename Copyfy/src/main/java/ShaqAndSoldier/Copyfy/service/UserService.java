@@ -5,6 +5,7 @@ import ShaqAndSoldier.Copyfy.model.User.Role;
 import static ShaqAndSoldier.Copyfy.model.User.Role.USER;
 import ShaqAndSoldier.Copyfy.repository.UserRepository;
 import ShaqAndSoldier.Copyfy.service.exceptions.UserNotValidException;
+import ShaqAndSoldier.Copyfy.service.exceptions.UsernameOrEmailInUseException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +34,14 @@ public class UserService {
         }
         throw new UserNotValidException();
     }
-    public User register(User user) {
-        user.setRole(USER);
-        this.user = userRepository.save(user);
-        return user;
+    public User register(User user) throws UsernameOrEmailInUseException {
+        if(isUsernameInUse(user) || isEmailInUse(user)){
+            throw new UsernameOrEmailInUseException();
+        }else{
+            user.setRole(USER);
+            this.user = userRepository.save(user);
+            return user;
+        }
     }
 
     public boolean isValid(User user) {
