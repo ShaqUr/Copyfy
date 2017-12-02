@@ -31,7 +31,13 @@ public class Song extends BaseEntity {
 
     @ManyToMany(targetEntity= Tag.class)
     private Set<Tag> tags=new HashSet();
-
+    
+    @Column(/*nullable = false,*/ unique = true)
+    private String filePath;
+    
+    @ManyToOne(targetEntity= User.class)
+    private User owner;
+    
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Access access;

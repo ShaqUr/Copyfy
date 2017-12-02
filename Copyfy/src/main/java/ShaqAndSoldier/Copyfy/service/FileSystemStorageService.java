@@ -1,11 +1,16 @@
 package ShaqAndSoldier.Copyfy.service;
 
+import ShaqAndSoldier.Copyfy.model.Song;
+import ShaqAndSoldier.Copyfy.model.Tag;
+import ShaqAndSoldier.Copyfy.repository.SongRepository;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileSystemStorageService implements StorageService {
-
+    @Autowired
+    SongRepository sngRepo;
+    Song sg = new Song();
+            
     private final Path rootLocation;
 
     @Autowired
@@ -40,8 +48,18 @@ public class FileSystemStorageService implements StorageService {
                         "Cannot store file with relative path outside current directory "
                                 + filename);
             }
+            //System.out.println(filename);
             Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
+            
+            sg.setTitle(filename);
+            sg.setAccess(Song.Access.PUBLIC);
+            Set<Tag> set = new HashSet<>();
+            sg.setTags(set);
+            System.out.println(sg.getAccess() + sg.getTags().toString() + sg.getTitle());
+            sngRepo.save(sg);
+            
+            
         }
         catch (IOException e) {
             throw new RuntimeException("Failed to store file " + filename, e);

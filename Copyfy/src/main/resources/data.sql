@@ -9,6 +9,7 @@
  */
 
 /*USERS*/
+
 INSERT INTO USERS (ID, VERSION, USERNAME, PASSWORD, EMAIL, ROLE) VALUES (0, 0, 'admin', 'admin', 'admin@gmail.com', 'ADMIN');
 INSERT INTO USERS (ID, VERSION, USERNAME, PASSWORD, EMAIL, ROLE) VALUES (1, 0, 'kjdavid', 'aaaaaa', 'kjdavid96@gmail.com', 'USER');
 INSERT INTO USERS (ID, VERSION, USERNAME, PASSWORD, EMAIL, ROLE) VALUES (2, 0, 'banned', 'banned', 'banned@banned.banned', 'BANNED');
