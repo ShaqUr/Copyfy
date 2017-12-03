@@ -35,8 +35,8 @@ public class Song extends BaseEntity {
     @Column(/*nullable = false,*/ unique = true)
     private String filePath;
     
-    @ManyToOne(targetEntity= User.class)
-    private User owner;
+    @Column(/*nullable= false,*/ unique = false)
+    private String owner;
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

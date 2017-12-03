@@ -13,7 +13,6 @@ import { AuthService } from 'app/auth.service';
 import { RegisterService } from 'app/register.service';
 import { SongsComponent } from './songs/songs.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
-import { SearchComponent } from './search/search.component';
 import { URLSearchParams } from '@angular/http/src/url_search_params';
 import { SearchService } from 'app/search.service';
 
@@ -22,7 +21,7 @@ const appRoutes : Routes = [
   {path: 'index', component: IndexComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'user/songs', component: LoginComponent},
-  {path: 'user/playlists', component: IndexComponent},
+  {path: 'user/playlists', component: PlaylistsComponent},
   {path: '**', redirectTo: '/index'},
 ];
 
@@ -35,7 +34,6 @@ const appRoutes : Routes = [
     RegistrationComponent,
     SongsComponent,
     PlaylistsComponent,
-    SearchComponent
   ],
   imports: [
     BrowserModule,
