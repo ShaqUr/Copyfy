@@ -23,6 +23,7 @@ const appRoutes : Routes = [
   {path: 'registration', component: RegistrationComponent},
   {path: 'user/songs', component: LoginComponent},
   {path: 'user/playlists', component: PlaylistsComponent},
+  {path: 'user/upload', component: UploadComponent},
   {path: '**', redirectTo: '/index'},
 ];
 
