@@ -32,7 +32,7 @@ public class Song extends BaseEntity {
     @ManyToMany(targetEntity= Tag.class)
     private Set<Tag> tags=new HashSet();
     
-    @Column(/*nullable = false,*/ unique = true)
+    @Column(columnDefinition="TEXT")
     private String filePath;
     
     @Column(/*nullable= false,*/ unique = false)

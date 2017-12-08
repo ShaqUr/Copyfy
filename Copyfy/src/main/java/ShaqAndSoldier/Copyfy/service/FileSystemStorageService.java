@@ -4,7 +4,10 @@ import ShaqAndSoldier.Copyfy.model.Song;
 import ShaqAndSoldier.Copyfy.model.Tag;
 import ShaqAndSoldier.Copyfy.repository.SongRepository;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,6 +15,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,12 +26,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 @Service
 public class FileSystemStorageService implements StorageService {
     @Autowired
     SongRepository sngRepo;
-    Song sg = new Song();
+    Song sg;
             
     private final Path rootLocation;
 
@@ -52,6 +56,20 @@ public class FileSystemStorageService implements StorageService {
             Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
             
+            byte[] encoded = Base64.encodeBase64(file.getBytes());        
+            String base64String = new String(encoded, StandardCharsets.US_ASCII);
+            //System.out.println(base64String);
+            
+            try{
+                PrintWriter writer = new PrintWriter("song.txt", "UTF-8");
+                writer.println(base64String);
+                writer.close();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            
+            sg = new Song();
+            sg.setFilePath(base64String);
             sg.setTitle(filename);
             sg.setAccess(Song.Access.PUBLIC);
             Set<Tag> set = new HashSet<>();
