@@ -1,8 +1,10 @@
 package ShaqAndSoldier.Copyfy.service;
 
+import ShaqAndSoldier.Copyfy.controller.FileUploadController;
 import ShaqAndSoldier.Copyfy.model.Song;
 import ShaqAndSoldier.Copyfy.model.Tag;
 import ShaqAndSoldier.Copyfy.repository.SongRepository;
+import ShaqAndSoldier.Copyfy.service.exceptions.UserNotValidException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
@@ -33,14 +35,16 @@ public class FileSystemStorageService implements StorageService {
     Song sg;
             
     private final Path rootLocation;
-
+    private final UserService userService;
+    
     @Autowired
-    public FileSystemStorageService(StorageProperties properties) {
+    public FileSystemStorageService(StorageProperties properties, UserService userService) {
         this.rootLocation = Paths.get(properties.getLocation());
+        this.userService = userService;
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public void store(MultipartFile file){
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
@@ -53,31 +57,29 @@ public class FileSystemStorageService implements StorageService {
                                 + filename);
             }
             //System.out.println(filename);
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
-                    StandardCopyOption.REPLACE_EXISTING);
+            //Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
+              //      StandardCopyOption.REPLACE_EXISTING);
             
             byte[] encoded = Base64.encodeBase64(file.getBytes());        
             String base64String = new String(encoded, StandardCharsets.US_ASCII);
             //System.out.println(base64String);
             
-            try{
-                PrintWriter writer = new PrintWriter("song.txt", "UTF-8");
-                writer.println(base64String);
-                writer.close();
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-            
+            //try{
+              //  PrintWriter writer = new PrintWriter("song.txt", "UTF-8");
+               // writer.println(base64String);
+               // writer.close();
+            //}catch(IOException e){
+             //   e.printStackTrace();
+            //}
             sg = new Song();
             sg.setFilePath(base64String);
             sg.setTitle(filename);
+            sg.setOwner(userService.getUser().getUsername());
             sg.setAccess(Song.Access.PUBLIC);
             Set<Tag> set = new HashSet<>();
             sg.setTags(set);
             System.out.println(sg.getAccess() + sg.getTags().toString() + sg.getTitle());
             sngRepo.save(sg);
-            
-            
         }
         catch (IOException e) {
             throw new RuntimeException("Failed to store file " + filename, e);
@@ -94,12 +96,13 @@ public class FileSystemStorageService implements StorageService {
         catch (IOException e) {
             throw new RuntimeException("Failed to read stored files", e);
         }
-
+        
     }
 
     @Override
     public Path load(String filename) {
         return rootLocation.resolve(filename);
+        //return null;
     }
 
     @Override
@@ -120,12 +123,12 @@ public class FileSystemStorageService implements StorageService {
             throw new RuntimeException("Could not read file: " + filename, e);
         }
     }
-
+    
     @Override
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }
-
+    
     @Override
     public void init() {
         try {

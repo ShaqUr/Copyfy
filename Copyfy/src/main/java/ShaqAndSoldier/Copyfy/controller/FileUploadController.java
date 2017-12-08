@@ -1,6 +1,7 @@
 package ShaqAndSoldier.Copyfy.controller;
 
 import ShaqAndSoldier.Copyfy.service.StorageService;
+import ShaqAndSoldier.Copyfy.service.UserService;
 import java.io.IOException;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class FileUploadController {
     private final StorageService storageService;
 
+    
     @Autowired
     public FileUploadController(StorageService storageService) {
         this.storageService = storageService;
@@ -38,7 +40,7 @@ public class FileUploadController {
                 path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                         "serveFile", path.getFileName().toString()).build().toString())
                 .collect(Collectors.toList()));
-
+        
         return "upload";
     }
     
@@ -55,8 +57,12 @@ public class FileUploadController {
     @PostMapping
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes) {
-
+        try{
         storageService.store(file);
+        }catch(NullPointerException e){
+            return "loginuidiot";
+        }
+
         //redirectAttributes.addFlashAttribute("message",
         //        "You successfully uploaded " + file.getOriginalFilename() + "!");
 
