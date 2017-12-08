@@ -15,6 +15,7 @@ import { SongsComponent } from './songs/songs.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
 import { URLSearchParams } from '@angular/http/src/url_search_params';
 import { SearchService } from 'app/search.service';
+import { UploadComponent } from './upload/upload.component';
 
 const appRoutes : Routes = [
   {path: 'login', component: LoginComponent},
@@ -34,6 +35,7 @@ const appRoutes : Routes = [
     RegistrationComponent,
     SongsComponent,
     PlaylistsComponent,
+    UploadComponent,
   ],
   imports: [
     BrowserModule,
