@@ -5,6 +5,7 @@ import { RegisterService } from '../register.service';
 import { Observable } from 'rxjs/observable';
 import { AuthService } from 'app/auth.service';
 import { SongService } from 'app/song.service';
+import { PlayerService } from 'app/player.service';
 
 @Component({
   selector: 'app-songs',
@@ -13,17 +14,24 @@ import { SongService } from 'app/song.service';
 })
 export class SongsComponent implements OnInit {
   model: Song[];
+  songsloaded:boolean;
   constructor(
     private songService : SongService,
     private authService : AuthService,
-  ) {}
+    private playerService: PlayerService,
+  ) {
+    this.songsloaded= false;
+  }
 
   ngOnInit() {
   }
-  ngAfterViewInit(){
-    this.loadSongs();
-  }
   public loadSongs(){
-    this.songService.getSongsByOwner(this.authService.user.username);
+    if(!this.songsloaded){
+      this.songService.getSongsByOwner(this.authService.user.username);
+      this.songsloaded=true;
+    }
+  }
+  public addSong(song: Song){
+    this.playerService.addSong(song);
   }
 }

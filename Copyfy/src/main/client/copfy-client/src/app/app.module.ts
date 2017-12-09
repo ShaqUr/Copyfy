@@ -15,8 +15,9 @@ import { SongsComponent } from './songs/songs.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
 import { URLSearchParams } from '@angular/http/src/url_search_params';
 import { SearchService } from 'app/search.service';
-import { UploadComponent } from './upload/upload.component';
 import { SongService } from 'app/song.service';
+import { PlayerComponent } from './player/player.component';
+import { PlayerService } from 'app/player.service';
 
 const appRoutes : Routes = [
   {path: 'login', component: LoginComponent},
@@ -24,7 +25,6 @@ const appRoutes : Routes = [
   {path: 'registration', component: RegistrationComponent},
   {path: 'user/songs', component: SongsComponent},
   {path: 'user/playlists', component: PlaylistsComponent},
-  {path: 'user/upload', component: UploadComponent},
   {path: '**', redirectTo: '/index'},
 ];
 
@@ -37,7 +37,7 @@ const appRoutes : Routes = [
     RegistrationComponent,
     SongsComponent,
     PlaylistsComponent,
-    UploadComponent,
+    PlayerComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +47,7 @@ const appRoutes : Routes = [
       appRoutes, {enableTracing: true}
     )
   ],
-  providers: [AuthService, RegisterService, SearchService, SongService],
+  providers: [AuthService, RegisterService, SearchService, SongService, PlayerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

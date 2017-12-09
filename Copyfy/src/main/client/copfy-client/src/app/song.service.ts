@@ -13,7 +13,7 @@ export class SongService {
   constructor(
     private http: Http,
   ) { }
-public getSongsByOwner(owner: String): Promise<Song[]>{
+  public getSongsByOwner(owner: String): Promise<Song[]>{
   const response$: Observable<any> = this.http.post('/api/songs/owner', owner);
   const responsePromise: Promise<any> = response$.toPromise();
   return responsePromise

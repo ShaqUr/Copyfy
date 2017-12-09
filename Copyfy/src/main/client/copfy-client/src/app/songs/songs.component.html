@@ -1,6 +1,8 @@
 <app-header></app-header>
-<div><a routerLink="/user/upload">Feltöltés</a></div>
+<input type="button" value="Feltöltés" onclick="window.open('http://localhost:8080/test/upload')" />
 <h2>Saját zenéim</h2>
+{{loadSongs()}}
 <ul id="mySongs" *ngFor="let mySong of songService.songs">
-    <li>{{mySong.title}}</li><audio controls src="data:audio/mp3;base64,{{mySong.base64str}}" ></audio>
+    <li>{{mySong.title}} <input type="Submit" value="Play" (click)="addSong(mySong);"></li>
 </ul>
+<app-player></app-player>
