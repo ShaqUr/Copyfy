@@ -21,9 +21,12 @@ public class SongService {
     @Autowired
     private SongRepository songRepo;
    
-    public Iterable<Song> getSongs(){
-        return songRepo.findAll();
-    } 
+    public Iterable<Song> getSongsByOwner(String owner){
+        return songRepo.findByOwner(owner);
+    }
+    public Iterable<Song> getSongsByAccess(String access){
+        return songRepo.findByAccess(access);
+    }
 
     
 }

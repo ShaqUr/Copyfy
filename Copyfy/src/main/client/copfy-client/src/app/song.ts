@@ -1,7 +1,7 @@
 export interface Song{
     title : string;
     tags : string[];
-    filePath : string;
+    base64str : string;
     owner : string;
     access : string;
 }

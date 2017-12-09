@@ -1,2 +1,6 @@
 <app-header></app-header>
-<app-upload></app-upload>
+<div><a routerLink="/user/upload">Feltöltés</a></div>
+<h2>Saját zenéim</h2>
+<ul id="mySongs" *ngFor="let mySong of songService.songs">
+    <li>{{mySong.title}}</li><audio controls src="data:audio/mp3;base64,{{mySong.base64str}}" ></audio>
+</ul>

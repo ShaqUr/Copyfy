@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,8 +28,9 @@ public class SongApiController {
         this.songService = songService;
     }
 
-    @GetMapping
-    public ResponseEntity<Iterable<Song>> song() {
-        return ResponseEntity.ok(songService.getSongs());
+    @PostMapping("/owner")
+    public ResponseEntity<Iterable<Song>> songByOwner(@RequestBody String owner) {
+        System.out.println(owner);
+        return ResponseEntity.ok(songService.getSongsByOwner(owner));
     }
 }

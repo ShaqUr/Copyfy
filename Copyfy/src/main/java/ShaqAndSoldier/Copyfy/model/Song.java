@@ -33,9 +33,9 @@ public class Song extends BaseEntity {
     private Set<Tag> tags=new HashSet();
     
     @Column(columnDefinition="TEXT")
-    private String filePath;
+    private String base64str;
     
-    @Column(/*nullable= false,*/ unique = false)
+    @Column(nullable= false, unique = false)
     private String owner;
     
     @Enumerated(EnumType.STRING)

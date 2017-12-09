@@ -18,9 +18,11 @@ import java.util.Optional;
 
 @Repository
 public interface SongRepository extends CrudRepository<Song, String> {
-    Optional<Song> findByTags(String tags);
+    Iterable<Song> findByTags(String tags);
 
     Optional<Song> findByTitle(String title);
 
-    Optional<Song> findByAccess(Access access); // Should only work if the access is public.*/
+    Iterable<Song> findByOwner(String owner);
+    
+    Iterable<Song> findByAccess(String access); // Should only work if the access is public.*/
 }
