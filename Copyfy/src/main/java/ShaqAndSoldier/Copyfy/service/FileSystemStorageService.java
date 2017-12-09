@@ -64,13 +64,13 @@ public class FileSystemStorageService implements StorageService {
             String base64String = new String(encoded, StandardCharsets.US_ASCII);
             //System.out.println(base64String);
             
-            try{
+            /*try{ //song.txt-be kiírjuk a base64stringet. (sql fajlhoz hasznos volt.)
                 PrintWriter writer = new PrintWriter("song.txt", "UTF-8");
                 writer.println(base64String);
                 writer.close();
             }catch(IOException e){
                 e.printStackTrace();
-            }
+            }*/
             sg = new Song();
             sg.setBase64str(base64String);
             sg.setTitle(filename);
