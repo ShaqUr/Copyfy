@@ -1,0 +1,78 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <div>
+            <button id="butten">Katt</button>
+    </div>
+    
+    <p>Select a File to Load:</p>
+    <input id="inputFileToLoad" type="file" onchange="loadImageFileAsURL();" />
+     
+ 
+    <p>File Contents as DataURL:</p>
+    <textarea id="textAreaFileContents" style="width:640;height:240" ></textarea>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script>
+    var a = ["Kanye", "West", "God"];
+    
+    function loadImageFileAsURL(){
+    var filesSelected = document.getElementById("inputFileToLoad").files;
+    if (filesSelected.length > 0){
+        var fileToLoad = filesSelected[0];
+ 
+        var fileReader = new FileReader();
+ 
+        fileReader.onload = function(fileLoadedEvent) 
+        {
+            var textAreaFileContents = document.getElementById
+            (
+                "textAreaFileContents"
+            );
+     
+            //textAreaFileContents.innerHTML = fileLoadedEvent.target.result;
+            console.log("mukodok");
+            $.ajax({
+                    type : "POST",
+                    url : "/test/upload",
+                    data : {
+                        myArray: a, //notice that "myArray" matches the value for @RequestParam
+                                    //on the Java side
+                        string: fileLoadedEvent.target.result
+                    },
+                    success : function(response) {
+                       // do something ... 
+                    },
+                    error : function(e) {
+                       alert('Error: ' + e);
+                    }
+                });
+        };
+ 
+        fileReader.readAsDataURL(fileToLoad);
+        }
+    }
+    
+    
+    document.getElementById("butten").addEventListener("click", function(){
+            console.log("mukodok");
+            $.ajax({
+                    type : "POST",
+                    url : "/test/upload",
+                    data : {
+                        myArray: a, //notice that "myArray" matches the value for @RequestParam
+                                    //on the Java side
+                        string: "haliho"
+                    },
+                    success : function(response) {
+                       // do something ... 
+                    },
+                    error : function(e) {
+                       alert('Error: ' + e);
+                    }
+                });
+            });
+            
+    </script>
+</body>
+</html>

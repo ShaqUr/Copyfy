@@ -3,6 +3,7 @@ package ShaqAndSoldier.Copyfy.controller;
 import ShaqAndSoldier.Copyfy.service.StorageService;
 import ShaqAndSoldier.Copyfy.service.UserService;
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -27,7 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class FileUploadController {
     private final StorageService storageService;
-
+    
     
     @Autowired
     public FileUploadController(StorageService storageService) {
@@ -54,7 +55,7 @@ public class FileUploadController {
     
     }
     
-    @PostMapping
+    @PostMapping()
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes) {
         try{

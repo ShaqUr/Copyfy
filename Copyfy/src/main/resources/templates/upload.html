@@ -9,7 +9,7 @@
 		<form method="POST" enctype="multipart/form-data" action="/">
 			<table>
 				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+				<tr><td></td><td><input id="butten" type="submit" value="Upload" /></td></tr>
 			</table>
 		</form>
 	</div>
@@ -21,6 +21,26 @@
 			</li>
 		</ul>
 	</div>
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script>
+    var a = ["Saab", "Volvo", "BMW"];
+        $("butten").click(function(e) {    
+            e.preventDefault();
+            $.ajax({
+                    type : "POST",
+                    url : "/test/upload",
+                    data : {
+                        myArray: a //notice that "myArray" matches the value for @RequestParam
+                                    //on the Java side
+                    },
+                    success : function(response) {
+                       // do something ... 
+                    },
+                    error : function(e) {
+                       alert('Error: ' + e);
+                    }
+                }); 
+            });
+    </script>
 </body>
 </html>
