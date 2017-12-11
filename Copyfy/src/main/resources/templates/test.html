@@ -9,12 +9,12 @@
     <input id="inputFileToLoad" type="file" onchange="loadImageFileAsURL();" />
      
  
-    <p>File Contents as DataURL:</p>
-    <textarea id="textAreaFileContents" style="width:640;height:240" ></textarea>
+    <p>Tagek:</p>
+    <textarea id="textAreaFileContents" style="width:200;height:100" ></textarea>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script>
-    var a = ["Kanye", "West", "God"];
+    var tags = [];
     
     function loadImageFileAsURL(){
     var filesSelected = document.getElementById("inputFileToLoad").files;
@@ -25,10 +25,10 @@
  
         fileReader.onload = function(fileLoadedEvent) 
         {
-            var textAreaFileContents = document.getElementById
-            (
-                "textAreaFileContents"
-            );
+            //var textAreaFileContents = document.getElementById
+            //(
+              //  "textAreaFileContents"
+            //);
      
             //textAreaFileContents.innerHTML = fileLoadedEvent.target.result;
             console.log("mukodok");
@@ -36,7 +36,7 @@
                     type : "POST",
                     url : "/test/upload",
                     data : {
-                        myArray: a, //notice that "myArray" matches the value for @RequestParam
+                        myArray: tags, //notice that "myArray" matches the value for @RequestParam
                                     //on the Java side
                         string: fileLoadedEvent.target.result
                     },
@@ -53,6 +53,16 @@
         }
     }
     
+    document.getElementById("textAreaFileContents").addEventListener("keypress", function(e){
+        var key = e.which || e.keyCode;
+        if(key === 13){
+            if( document.getElementById("textAreaFileContents").value !== ""){
+                tags.push(document.getElementById("textAreaFileContents").value);
+                console.log(tags);
+                document.getElementById("textAreaFileContents").value = ""; 
+            }
+        }
+    });
     
     document.getElementById("butten").addEventListener("click", function(){
             console.log("mukodok");

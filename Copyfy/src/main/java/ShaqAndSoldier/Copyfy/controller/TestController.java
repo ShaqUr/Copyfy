@@ -44,6 +44,12 @@ public class TestController {
         sg.setAccess(Song.Access.PUBLIC);
         sg.setTitle("teszt");
         Set<Tag> set = new HashSet<>();
+        for(String tag : myArray){
+            Tag tg = new Tag();
+            tg.setTag(tag);
+            set.add(tg);
+        }
+        System.out.println(set);
         sg.setTags(set);
         sngRepo.save(sg);
         return "test";
