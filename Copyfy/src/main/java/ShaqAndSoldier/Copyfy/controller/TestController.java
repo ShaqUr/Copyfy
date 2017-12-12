@@ -4,6 +4,7 @@ package ShaqAndSoldier.Copyfy.controller;
 import ShaqAndSoldier.Copyfy.model.Song;
 import ShaqAndSoldier.Copyfy.model.Tag;
 import ShaqAndSoldier.Copyfy.repository.SongRepository;
+import ShaqAndSoldier.Copyfy.repository.TagRepository;
 import ShaqAndSoldier.Copyfy.service.UserService;
 import java.util.HashSet;
 import java.util.List;
@@ -27,6 +28,11 @@ public class TestController {
     SongRepository sngRepo;
     Song sg;
     
+    @Autowired
+    TagRepository tagRepo;
+    
+   
+    
     private UserService userService;
      
     @GetMapping("/upload")
@@ -43,10 +49,12 @@ public class TestController {
         sg.setBase64str(string);
         sg.setAccess(Song.Access.PUBLIC);
         sg.setTitle("teszt");
+        
         Set<Tag> set = new HashSet<>();
         for(String tag : myArray){
             Tag tg = new Tag();
             tg.setTag(tag);
+            tagRepo.save(tg);
             set.add(tg);
         }
         System.out.println(set);
@@ -55,3 +63,4 @@ public class TestController {
         return "test";
     }
 }   
+
