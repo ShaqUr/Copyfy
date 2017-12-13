@@ -5,6 +5,7 @@ import ShaqAndSoldier.Copyfy.model.Song;
 import ShaqAndSoldier.Copyfy.model.Tag;
 import ShaqAndSoldier.Copyfy.repository.SongRepository;
 import ShaqAndSoldier.Copyfy.repository.TagRepository;
+import ShaqAndSoldier.Copyfy.service.UploadService;
 import ShaqAndSoldier.Copyfy.service.UserService;
 import java.util.HashSet;
 import java.util.List;
@@ -31,9 +32,8 @@ public class TestController {
     @Autowired
     TagRepository tagRepo;
     
-   
-    
-    private UserService userService;
+    @Autowired
+    private UploadService uploadService;
      
     @GetMapping("/upload")
     public String testField() {
@@ -42,25 +42,43 @@ public class TestController {
     
     
     @PostMapping("/upload")
-    public String controllerMethod(@RequestParam(value="myArray[]") List<String> myArray, @RequestParam(value="string") String string){
-        System.out.println(string);
+    public String controllerMethod(
+            @RequestParam(value="myArray[]") List<String> myArray, 
+            @RequestParam(value="string") String string,
+            @RequestParam(value="privat") boolean privat,
+            @RequestParam(value="title") String title
+    ){
         sg = new Song();
-        sg.setOwner("Shaq");
+        if(!uploadService.isLoggedIn()){
+            System.out.println("fail");
+            return "loginuidiot";
+        }else{
+            sg.setOwner(uploadService.getUser().getUsername());
+        }
+        System.out.println(string);
         sg.setBase64str(string);
-        sg.setAccess(Song.Access.PUBLIC);
-        sg.setTitle("teszt");
+        if(privat){
+           sg.setAccess(Song.Access.PRIVATE);
+        }else{
+           sg.setAccess(Song.Access.PUBLIC);
+        }
+        sg.setTitle(title);
         
         Set<Tag> set = new HashSet<>();
         for(String tag : myArray){
             Tag tg = new Tag();
             tg.setTag(tag);
-            tagRepo.save(tg);
+            try{
+                tagRepo.save(tg);
+            }catch(Exception e){
+                tg = tagRepo.findByTag(tag).get();
+            }
             set.add(tg);
         }
         System.out.println(set);
         sg.setTags(set);
         sngRepo.save(sg);
-        return "test";
+        return "success";
     }
 }   
 

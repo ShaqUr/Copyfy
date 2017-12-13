@@ -24,7 +24,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 public class Tag extends BaseEntity{
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String tag;
     
 }

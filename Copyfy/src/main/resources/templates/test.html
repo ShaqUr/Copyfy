@@ -1,22 +1,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-
+    <p>Select a File to Load:</p>
     <div>
-            <button id="butten">Katt</button>
+       <input id="inputFileToLoad" type="file" accept=".mp3,audio/*"/>
     </div>
     
-    <p>Select a File to Load:</p>
-    <input id="inputFileToLoad" type="file" onchange="loadImageFileAsURL();" accept=".mp3,audio/*"/>
-     
- 
-    <p>Tagek:</p>
-    <textarea id="textAreaFileContents" style="width:50;height:20" ></textarea>
-    
+    <div>
+        Cím:<textarea id="cim" style="width:200;height:20" ></textarea>
+    </div> 
+    Tagek:<textarea id="textAreaFileContents" style="width:70;height:20" ></textarea>
+    <p id= "showtags"></p>
+    <div>
+        Privát a zene? (ha nem, akkor ne csekkold be):  <input id="checkBox" type="checkbox"></input>
+    </div>
+    <div>
+            <button id="butten">Feltöltés!</button>
+    </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script>
     var tags = [];
     
-    function loadImageFileAsURL(){
+    function convertAndSendData(){
     var filesSelected = document.getElementById("inputFileToLoad").files;
     if (filesSelected.length > 0){
         var fileToLoad = filesSelected[0];
@@ -38,7 +42,9 @@
                     data : {
                         myArray: tags, //notice that "myArray" matches the value for @RequestParam
                                     //on the Java side
-                        string: fileLoadedEvent.target.result
+                        string: fileLoadedEvent.target.result,
+                        privat: document.getElementById("checkBox").checked,
+                        title: document.getElementById("cim").value
                     },
                     success : function(response) {
                        // do something ... 
@@ -56,31 +62,23 @@
     document.getElementById("textAreaFileContents").addEventListener("keypress", function(e){
         var key = e.which || e.keyCode;
         if(key === 13){
-            if( document.getElementById("textAreaFileContents").value !== ""){
-                tags.push(document.getElementById("textAreaFileContents").value);
+            if(tags.length != 0){
+                var str = this.value.substring(1, this.value.length);
+            }else{
+                var str = this.value;
+            }
+            if( str !== ""){
+                tags.push(str);
+                document.getElementById("showtags").innerHTML += " " + str;
                 console.log(tags);
-                document.getElementById("textAreaFileContents").value = ""; 
+                this.value = ""; 
             }
         }
     });
     
     document.getElementById("butten").addEventListener("click", function(){
             console.log("mukodok");
-            $.ajax({
-                    type : "POST",
-                    url : "/test/upload",
-                    data : {
-                        myArray: a, //notice that "myArray" matches the value for @RequestParam
-                                    //on the Java side
-                        string: "haliho"
-                    },
-                    success : function(response) {
-                       // do something ... 
-                    },
-                    error : function(e) {
-                       alert('Error: ' + e);
-                    }
-                });
+                convertAndSendData();
             });
             
     </script>
