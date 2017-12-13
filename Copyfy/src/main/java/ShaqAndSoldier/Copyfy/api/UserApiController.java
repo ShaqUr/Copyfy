@@ -36,6 +36,14 @@ public class UserApiController {
         return ResponseEntity.badRequest().build();
     }
 
+    @PostMapping("search")
+    public ResponseEntity<Iterable<String> > search(@RequestBody String username){
+        if(username.equals("")){
+            return ResponseEntity.ok(userService.getUsernames());
+        }else{
+            return ResponseEntity.ok(userService.getUsername(username));
+        }
+    }
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         try {

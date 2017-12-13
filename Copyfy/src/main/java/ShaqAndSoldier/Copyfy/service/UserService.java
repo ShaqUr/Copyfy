@@ -6,6 +6,8 @@ import static ShaqAndSoldier.Copyfy.model.User.Role.USER;
 import ShaqAndSoldier.Copyfy.repository.UserRepository;
 import ShaqAndSoldier.Copyfy.service.exceptions.UserNotValidException;
 import ShaqAndSoldier.Copyfy.service.exceptions.UsernameOrEmailInUseException;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,5 +63,17 @@ public class UserService {
     }
     public boolean isUserLoggedIn(String username){
         return user.getUsername().equals(username);
+    }
+    public Iterable<String> getUsernames(){
+        Set<String> s=new HashSet<>();
+        for(User u :this.userRepository.findAll()){
+            s.add(u.getUsername());
+        }
+        return s;
+    }
+    public Iterable<String> getUsername(String username){
+        Set<String> s = new HashSet<>();
+        s.add(this.userRepository.findByUsername(username).get().getUsername());
+        return s;
     }
 }

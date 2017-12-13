@@ -4,23 +4,29 @@
   <div class="link" *ngIf="!isLoggedIn()"><a routerLink="/registration">Regisztráció</a></div>
   <div class="link" *ngIf="isLoggedIn()"><a routerLink="/user/songs">Zenék</a></div>
   <div class="link" *ngIf="isLoggedIn()"><a routerLink="/user/playlists">Lejátszási listáim</a></div>
-  <div><form #form="ngForm" (submit)="onSubmit()" *ngIf="isLoggedIn()">
+  <div *ngIf="isLoggedIn()"><form #form="ngForm" (submit)="onSubmit()">
       <table id="searchComponent"><tr><td>
-          <label for="search">Keresés:</label>
+          <label for="searchedExpression">Keresés:</label>
           <input type="text"
-                 name="search"/></td>
-          <td><input type="radio"
-                 name="object"
-                 value="song"/>Felhasználó
+                 name="searchedExpression" [(ngModel)]="model.searchedExpression"
+                 #searchedExpression="ngModel"/></td>
+          <td>
+            <input type="radio"
+                 name="searchedType" [(ngModel)]= "model.searchedType"
+                 #searchedType="ngModel"
+                 value="user"/>Felhasználó
               </td>
         </tr>
         <tr><td>
-            <input type="submit" value="Keresés" />
-        </td><td>
-          <input type="radio"
-          name="object"
-          value="user"/>
-        Zene</td>
+              <input type="submit" value="Keresés" />
+            </td>
+            <td>
+              <input type="radio"
+              name="searchedType" [(ngModel)]="model.searchedType"
+              #searchedType="ngModel"
+              value="song" checked="checked"/>
+              Zene
+            </td>
         </tr>
       
       </table>
