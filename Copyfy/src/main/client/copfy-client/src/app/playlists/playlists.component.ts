@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { User } from '../user';
 import { AuthService } from 'app/auth.service';
 import { Playlist } from 'app/playlist';
+import { PlayerService } from 'app/player.service';
+import { Song } from 'app/song';
 
 @Component({
   selector: 'app-playlists',
@@ -14,6 +16,7 @@ export class PlaylistsComponent implements OnInit {
   playlists: Playlist[];
   constructor(
     private authService: AuthService,
+    private playerService: PlayerService,
     private router: Router,
   ) {
     this.model = authService.user;
@@ -23,7 +26,11 @@ export class PlaylistsComponent implements OnInit {
   ngOnInit() {
   }
   public getPlaylistName(playlist: Playlist):string{
-    console.log(playlist.name);
     return playlist.name;
+  }
+  public addPlaylist(){}
+
+  playPLaylist(songs: Song[]){
+    this.playerService.addSongs(songs);
   }
 }

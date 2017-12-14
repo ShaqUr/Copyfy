@@ -1,4 +1,5 @@
 <app-header></app-header>
 <ul id="playlists" *ngFor="let playlist of authService.user.playlists">
-    <li>{{getPlaylistName(playlist)}}</li>
+    <li>{{getPlaylistName(playlist)}} <input type="Submit" value="Play" (click)="playPLaylist(playlist.songs);"></li>
 </ul>
+<app-player></app-player>

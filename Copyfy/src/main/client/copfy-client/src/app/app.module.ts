@@ -18,6 +18,7 @@ import { SearchService } from 'app/search.service';
 import { SongService } from 'app/song.service';
 import { PlayerComponent } from './player/player.component';
 import { PlayerService } from 'app/player.service';
+import { ResultComponent } from './result/result.component';
 
 const appRoutes : Routes = [
   {path: 'login', component: LoginComponent},
@@ -38,6 +39,7 @@ const appRoutes : Routes = [
     SongsComponent,
     PlaylistsComponent,
     PlayerComponent,
+    ResultComponent,
   ],
   imports: [
     BrowserModule,

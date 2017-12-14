@@ -18,7 +18,14 @@ export class PlayerService {
   addSong$ = this.componentMethodCallSource.asObservable();
   public addSong(song: Song){
     console.log(song.title);
+    this.songs=[];
     this.songs.push(song);
+    this.componentMethodCallSource.next();
+  }
+  public addSongs(songs: Song[]){
+    console.log("playlist added");
+    this.songs=[];
+    this.songs=this.songs.concat(songs);
     this.componentMethodCallSource.next();
   }
   public getSong():Song{

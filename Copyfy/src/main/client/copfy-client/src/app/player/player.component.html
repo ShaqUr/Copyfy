@@ -1,5 +1,5 @@
 <div id="player"
 *ngIf="isLoggedIn()"
  align=center>
- <audio controls autoplay controlsList='nodownload' (ended)='audioEnded()' [src]="'data:audio/mp3;base64,'+song.base64str"></audio>
+ <audio controls autoplay controlsList='nodownload' (ended)='audioEnded()' [src]="song.base64str"></audio>
 </div>
