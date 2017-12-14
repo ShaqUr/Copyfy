@@ -1,4 +1,6 @@
 <app-header></app-header>
 <div id="result">
-  
+  <ul *ngFor="let username of searchService.users">
+    <li>{{username}} <a *ngIf="username!='Nincs ilyen felhasználó!'">létezik, oszd meg vele zenéid!</a></li>
+  </ul>
 </div>

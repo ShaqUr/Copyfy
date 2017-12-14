@@ -6,14 +6,18 @@ import { User } from './user';
 
 @Injectable()
 export class AuthService {
-
   user: User;
-
+  private banned: boolean;
   constructor(
     private http: Http,
-  ) { }
+  ) {
+    this.banned=false;
+  }
   public isLoggedIn(): boolean{
     return (this.user!==undefined);
+  }
+  public isBanned(): boolean{
+    return this.banned;
   }
   public login(user: User): Promise<User> {
     const response$: Observable<any> = this.http.post('/api/user/login', user);
@@ -22,8 +26,14 @@ export class AuthService {
       .then(res => res.json())
       .then(loggedInUser => {
         this.user = loggedInUser;
-        return loggedInUser;
+        if(this.user.role==="BANNED"){
+          this.banned=true;
+          this.user=undefined;
+          return null;
+        }else{
+          this.banned=false;
+          return loggedInUser;
+        }
       });
   }
-
 }

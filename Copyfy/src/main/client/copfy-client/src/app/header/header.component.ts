@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/auth.service';
 import {SearchService} from 'app/search.service';
 import { ViewChild } from '@angular/core/src/metadata/di';
+import { Router } from '@angular/router/src/router';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private searchService : SearchService,
     private authService : AuthService,
+    private router: Router,
   ) {
     this.model={
       "searchedExpression":'',
@@ -30,7 +32,11 @@ export class HeaderComponent implements OnInit {
   }
   onSubmit(){
     if(this.model.searchedType==='user'){
-      console.log("USER");
+      console.log("User kereső on duty!");
+      this.searchService.searchUser(this.model.searchedExpression)
+        .then(() =>{
+          this.router.navigateByUrl('/results')
+        });
     }else{
       console.log(this.model);
     }

@@ -7,6 +7,10 @@ import ShaqAndSoldier.Copyfy.service.UserService;
 import ShaqAndSoldier.Copyfy.service.annotations.Role;
 import ShaqAndSoldier.Copyfy.service.exceptions.UserNotValidException;
 import ShaqAndSoldier.Copyfy.service.exceptions.UsernameOrEmailInUseException;
+import com.sun.istack.Nullable;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,12 +42,21 @@ public class UserApiController {
 
     @PostMapping("search")
     public ResponseEntity<Iterable<String> > search(@RequestBody String username){
-        if(username.equals("")){
-            return ResponseEntity.ok(userService.getUsernames());
-        }else{
-            return ResponseEntity.ok(userService.getUsername(username));
+        
+        try{
+        return ResponseEntity.ok(userService.getUsername(username));
+        }catch (NoSuchElementException nsee){
+            return ResponseEntity.ok(new HashSet<>(Arrays.asList("Nincs ilyen felhasználó!")));
+
         }
     }
+    @PostMapping("searchall")
+    public ResponseEntity<Iterable<String> > search(){
+        
+        return ResponseEntity.ok(userService.getUsernames());
+        
+    }
+    
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         try {

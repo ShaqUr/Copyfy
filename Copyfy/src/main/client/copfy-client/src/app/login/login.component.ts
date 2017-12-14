@@ -33,7 +33,11 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       this.authService.login(this.model)
         .then(() => {
-          this.router.navigateByUrl('/index');
+          if(this.authService.isBanned()){
+            this.validationMessage = 'Bannolva vagy!'
+          }else{
+            this.router.navigateByUrl('/index');
+          }
         })
         .catch(() => {
           this.validationMessage = 'Nem sikerült bejelentkezni';
