@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
   ) {
     this.model = {
+      "id": -1,
+      "version": -1,
       "username": '',
       "password": '',
     };

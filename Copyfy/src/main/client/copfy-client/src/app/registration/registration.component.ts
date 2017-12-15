@@ -21,6 +21,7 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
   ) {
     this.model = {
+      
       "username": '',
       "password": '',
       "email": '',

@@ -36,11 +36,10 @@ export class AuthService {
         }
       });
   }
-  public bann(username: String){
+  public bann(username: string){
     if(this.user.role=="ADMIN"){
       const response$: Observable<any> = this.http.post('/api/user/bann', username);
       const responsePromise: Promise<any> = response$.toPromise();
-      console.log(responsePromise);
       return responsePromise
         .then(msg =>{
           alert(msg.text());
@@ -48,5 +47,17 @@ export class AuthService {
     }else{
       alert("Felkerültél a bannlistára muhahahaha!");
     }
+  }
+  public changePassword(newPassword: string){
+    this.user.password=newPassword;
+    const response$: Observable<any> = this.http.post('/api/user/changepassword', this.user);
+    const responsePromise: Promise<any> = response$.toPromise();
+    return responsePromise
+    .then(res => res.json())
+    .then(loggedInUser => {
+      this.user = loggedInUser;
+      this.banned=false;
+      return loggedInUser;
+      });
   }
 }

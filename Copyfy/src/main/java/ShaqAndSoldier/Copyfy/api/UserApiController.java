@@ -63,7 +63,6 @@ public class UserApiController {
     }
     @PostMapping("/bann")
     public ResponseEntity<String> bann(@RequestBody String username){
-        System.out.println(username);
         if(this.userService.getUser().getRole().equals(User.Role.ADMIN) && !username.equals(this.userService.getUser().getUsername())){
             this.userService.bann(username);
             return ResponseEntity.ok(username+" banned!");
@@ -71,7 +70,17 @@ public class UserApiController {
             return ResponseEntity.badRequest().build();
         }
     }
-
+    @PostMapping("/changepassword")
+    public ResponseEntity<User> changePassword(@RequestBody User user){
+        if(this.userService.getUser().getUsername().equals(user.getUsername())){
+            User u = this.userService.getUserRepository().findByUsername(user.getUsername()).get();
+            u.setPassword(user.getPassword());
+            this.userService.getUserRepository().save(u);
+            return ResponseEntity.ok(user);
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
+    }
     @GetMapping("/logout")
     public ResponseEntity logout(@RequestBody User user) {
         this.userService.setUser(null);

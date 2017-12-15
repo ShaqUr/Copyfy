@@ -10,4 +10,31 @@
        <li>{{song.title}} {{song.owner}}<input type="button" value="Delete" (click)="songService.delete(song)"></li>
     </ul>
   </div>
+  <div id="changePassword">
+    <form #form="ngForm" (submit)="onSubmit()">
+      <div class="form-group">
+        <label for="password">Jelszó:</label>
+        <input type="password"
+               required
+               name="password" [(ngModel)]="model.password"
+               #password="ngModel" />
+        <div *ngIf="password.invalid && password.touched" >
+          <span *ngIf="password.errors.required">Kötelező mező</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="passwordAgain">Jelszó ismét:</label>
+        <input type="password"
+               required
+               name="passwordAgain" [(ngModel)]="model.passwordAgain"
+               #passwordAgain="ngModel" />
+        <div *ngIf="passwordAgain.invalid && passwordAgain.touched" >
+          <span *ngIf="passwordAgain.errors.required">Kötelező mező</span>
+        </div>
+          <span *ngIf="pwsNotMatching()">Jelszó nem egyezik!</span>
+      </div>
+      <input type="submit" value="Mentés" />
+      <input type="reset" value="Törlés" />
+    </form>
+  </div>
 </div>
