@@ -42,19 +42,15 @@ public class UserApiController {
 
     @PostMapping("search")
     public ResponseEntity<Iterable<String> > search(@RequestBody String username){
-        
         try{
         return ResponseEntity.ok(userService.getUsername(username));
         }catch (NoSuchElementException nsee){
             return ResponseEntity.ok(new HashSet<>(Arrays.asList("Nincs ilyen felhasználó!")));
-
         }
     }
     @PostMapping("searchall")
     public ResponseEntity<Iterable<String> > search(){
-        
         return ResponseEntity.ok(userService.getUsernames());
-        
     }
     
     @PostMapping("/login")
@@ -62,6 +58,16 @@ public class UserApiController {
         try {
             return ResponseEntity.ok(userService.login(user));
         } catch (UserNotValidException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    @PostMapping("/bann")
+    public ResponseEntity<String> bann(@RequestBody String username){
+        System.out.println(username);
+        if(this.userService.getUser().getRole().equals(User.Role.ADMIN) && !username.equals(this.userService.getUser().getUsername())){
+            this.userService.bann(username);
+            return ResponseEntity.ok(username+" banned!");
+        }else{
             return ResponseEntity.badRequest().build();
         }
     }

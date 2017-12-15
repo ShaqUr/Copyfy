@@ -16,6 +16,7 @@ export class PlayerComponent implements OnInit {
     private playerService : PlayerService,
   ) {
     this.song={
+      id: -1,
       owner: "",
       base64str: "",
       tags: [],
@@ -48,6 +49,7 @@ export class PlayerComponent implements OnInit {
       return this.playerService.getSong();
     }else{
       return {
+        id: -1,
         owner: "",
         base64str: "",
         tags: [],

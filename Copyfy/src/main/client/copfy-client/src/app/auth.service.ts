@@ -36,4 +36,17 @@ export class AuthService {
         }
       });
   }
+  public bann(username: String){
+    if(this.user.role=="ADMIN"){
+      const response$: Observable<any> = this.http.post('/api/user/bann', username);
+      const responsePromise: Promise<any> = response$.toPromise();
+      console.log(responsePromise);
+      return responsePromise
+        .then(msg =>{
+          alert(msg.text());
+        });
+    }else{
+      alert("Felkerültél a bannlistára muhahahaha!");
+    }
+  }
 }

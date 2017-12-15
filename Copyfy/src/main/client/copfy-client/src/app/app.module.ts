@@ -19,6 +19,7 @@ import { SongService } from 'app/song.service';
 import { PlayerComponent } from './player/player.component';
 import { PlayerService } from 'app/player.service';
 import { ResultComponent } from './result/result.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes : Routes = [
   {path: 'login', component: LoginComponent},
@@ -27,6 +28,7 @@ const appRoutes : Routes = [
   {path: 'user/songs', component: SongsComponent},
   {path: 'user/playlists', component: PlaylistsComponent},
   {path: 'results', component: ResultComponent},
+  {path: 'user/settings', component: SettingsComponent},
   {path: '**', redirectTo: '/index'},
 ];
 
@@ -41,6 +43,7 @@ const appRoutes : Routes = [
     PlaylistsComponent,
     PlayerComponent,
     ResultComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

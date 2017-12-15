@@ -4,6 +4,7 @@
   <div class="link" *ngIf="!isLoggedIn()"><a routerLink="/registration">Regisztráció</a></div>
   <div class="link" *ngIf="isLoggedIn()"><a routerLink="/user/songs">Zenék</a></div>
   <div class="link" *ngIf="isLoggedIn()"><a routerLink="/user/playlists">Lejátszási listáim</a></div>
+  <div class="link" *ngIf="isLoggedIn()"><a routerLink="/user/settings">Beállítások</a></div>
   <div *ngIf="isLoggedIn()"><form #form="ngForm" (submit)="onSubmit()">
       <table id="searchComponent"><tr><td>
           <label for="searchedExpression">Keresés:</label>

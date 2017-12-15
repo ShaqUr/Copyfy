@@ -13,6 +13,14 @@ export class SongService {
   constructor(
     private http: Http,
   ) { }
+  public delete(song:Song){
+    const response$: Observable<any> = this.http.post('/api/songs/delete', song);
+    const responsePromise: Promise<any> = response$.toPromise();
+    return responsePromise
+    .then(msg =>{
+      alert(msg.text());
+    });
+  }
   public getSongsByOwner(owner: String): Promise<Song[]>{
   const response$: Observable<any> = this.http.post('/api/songs/owner', owner);
   const responsePromise: Promise<any> = response$.toPromise();

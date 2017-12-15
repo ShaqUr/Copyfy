@@ -1,0 +1,13 @@
+<app-header></app-header>
+<div id="settings">
+  <div id=userList *ngIf="authService.user.role=='ADMIN'">
+    <ul *ngFor="let user of searchService.users">
+       <li>{{user}} <input type="button" value="Bann" (click)="authService.bann(user)"></li>
+    </ul>
+  </div>
+  <div id=songList *ngIf="authService.user.role=='ADMIN'">
+    <ul *ngFor="let song of searchService.songs">
+       <li>{{song.title}} {{song.owner}}<input type="button" value="Delete" (click)="songService.delete(song)"></li>
+    </ul>
+  </div>
+</div>

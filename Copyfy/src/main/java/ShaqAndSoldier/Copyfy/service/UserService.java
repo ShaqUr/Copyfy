@@ -3,6 +3,7 @@ package ShaqAndSoldier.Copyfy.service;
 import ShaqAndSoldier.Copyfy.model.User;
 import ShaqAndSoldier.Copyfy.model.User.Role;
 import static ShaqAndSoldier.Copyfy.model.User.Role.USER;
+import static ShaqAndSoldier.Copyfy.model.User.Role.BANNED;
 import ShaqAndSoldier.Copyfy.repository.UserRepository;
 import ShaqAndSoldier.Copyfy.service.exceptions.UserNotValidException;
 import ShaqAndSoldier.Copyfy.service.exceptions.UsernameOrEmailInUseException;
@@ -75,5 +76,12 @@ public class UserService {
         Set<String> s = new HashSet<>();
         s.add(this.userRepository.findByUsername(username).get().getUsername());
         return s;
+    }
+
+    public void bann(String username) {
+        this.userRepository.findByUsername(username).get().setRole(BANNED);
+        User u = this.userRepository.findByUsername(username).get();
+        this.userRepository.save(u);
+        
     }
 }
