@@ -122,9 +122,11 @@ public class UserApiController {
         Song sg = songService.getSongRepo().findByTitle(model.songName).get();
         Playlist playlist = userService.getPlaylistRepo().findByName(model.playlistName).get();
         User user = userService.getUserRepository().findByUsername(userService.getUser().getUsername()).get();
-        playlist.getSongs().add(sg);
-        userService.getPlaylistRepo().save(playlist);
-        userService.getUserRepository().save(user);
+        if(!playlist.getSongs().contains(sg)){
+            playlist.getSongs().add(sg);
+            userService.getPlaylistRepo().save(playlist);
+            userService.getUserRepository().save(user);
+        }
         return ResponseEntity.ok(user);
     }
 }
