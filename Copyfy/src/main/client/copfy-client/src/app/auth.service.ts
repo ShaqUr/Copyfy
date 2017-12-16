@@ -7,7 +7,6 @@ import { User } from './user';
 @Injectable()
 export class AuthService {
   user: User;
-   model: {playlistname: string, songtitle: string};
 
   private banned: boolean;
   constructor(
@@ -73,8 +72,12 @@ export class AuthService {
     });
   }
 
-  public addSongToPlaylist(model): Promise<User>{
-      const response$: Observable<any> = this.http.post('/api/user/addtoplaylist', model);
+  public addSongToPlaylist(sn: string, pn: string): Promise<User>{
+    let model={
+      songName: sn,
+      playlistName: pn,
+    };
+    const response$: Observable<any> = this.http.post('/api/user/addtoplaylist', model);
       const responsePromise: Promise<any> = response$.toPromise();
       return responsePromise
       .then(res => res.json())

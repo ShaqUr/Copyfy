@@ -8,19 +8,26 @@ import {AuthService} from 'app/auth.service';
 })
 export class ResultComponent implements OnInit {
 
-  model: {playlistname: string, songtitle: string};
+  model: {
+    songName: string
+    playlistName: string,
+    };
   constructor(
     private authService: AuthService,
     private searchService: SearchService,
   ) {
-    this.model = {playlistname : "", songtitle : ""}
+    this.model = {
+      "songName" : '',
+      "playlistName" : '',
+    }
    }
 
   ngOnInit() {
 
   }
 
-  onsubmit(){
-    this.authService.addSongToPlaylist(this.model);
+  onSubmit(){
+    this.authService.addSongToPlaylist(this.model.songName, this.model.playlistName);
+    console.log(this.model);
   }
 }

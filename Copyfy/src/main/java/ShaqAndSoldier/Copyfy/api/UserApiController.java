@@ -17,6 +17,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -112,10 +113,14 @@ public class UserApiController {
         userService.getUserRepository().save(user);
         return ResponseEntity.ok(user);
     }
+    static class Model{
+        public String songName;
+        public String playlistName;
+    }
     @PostMapping("/addtoplaylist")
-    public ResponseEntity<User> addToPlaylist(@RequestBody String songName, String playlistName){
-        Song sg = songService.getSongRepo().findByTitle(songName).get();
-        Playlist playlist = userService.getPlaylistRepo().findByName(playlistName).get();
+    public ResponseEntity<User> addToPlaylist(@RequestBody Model model){
+        Song sg = songService.getSongRepo().findByTitle(model.songName).get();
+        Playlist playlist = userService.getPlaylistRepo().findByName(model.playlistName).get();
         User user = userService.getUserRepository().findByUsername(userService.getUser().getUsername()).get();
         playlist.getSongs().add(sg);
         userService.getPlaylistRepo().save(playlist);
