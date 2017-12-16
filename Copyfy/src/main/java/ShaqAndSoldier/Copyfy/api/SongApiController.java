@@ -1,8 +1,10 @@
 package ShaqAndSoldier.Copyfy.api;
 
 import ShaqAndSoldier.Copyfy.model.Song;
+import ShaqAndSoldier.Copyfy.model.Tag;
 import ShaqAndSoldier.Copyfy.model.User;
 import ShaqAndSoldier.Copyfy.model.User.Role;
+import ShaqAndSoldier.Copyfy.model.UserName;
 import ShaqAndSoldier.Copyfy.service.SongService;
 import ShaqAndSoldier.Copyfy.service.UserService;
 import java.util.HashSet;
@@ -63,4 +65,22 @@ public class SongApiController {
     public ResponseEntity<Iterable<Song>> songByOwner(@RequestBody String owner) {
         return ResponseEntity.ok(songService.getSongsByOwner(owner));
     }
+    
+    @PostMapping("/search")
+    public ResponseEntity<Iterable<Song>> search(@RequestBody String tag){
+        Set<Song> songsAccesableToUser = new HashSet<>();
+        Tag tg = songService.getTagRepo().findByTag(tag).get();
+        Iterator<Song> itr = songService.getSongRepo().findByTags(tg).iterator();
+        while(itr.hasNext()){
+            Song sg = itr.next();
+            UserName username = userService.getUserNameRepository().findByName(userService.getUser().getUsername()).get();
+            if(sg.getAccess().equals(Song.Access.PUBLIC)){
+                songsAccesableToUser.add(sg);
+            }else if(sg.getFriendUserNames().contains(username)){
+                songsAccesableToUser.add(sg);
+            }
+        }
+        return ResponseEntity.ok(songsAccesableToUser);
+    }
+    
 }

@@ -3,11 +3,15 @@ package ShaqAndSoldier.Copyfy.controller;
 
 import ShaqAndSoldier.Copyfy.model.Song;
 import ShaqAndSoldier.Copyfy.model.Tag;
+import ShaqAndSoldier.Copyfy.model.User;
+import ShaqAndSoldier.Copyfy.model.UserName;
 import ShaqAndSoldier.Copyfy.repository.SongRepository;
 import ShaqAndSoldier.Copyfy.repository.TagRepository;
+import ShaqAndSoldier.Copyfy.repository.UserNameRepository;
 import ShaqAndSoldier.Copyfy.service.UploadService;
 import ShaqAndSoldier.Copyfy.service.UserService;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +34,17 @@ public class TestController {
     Song sg;
     
     @Autowired
-    TagRepository tagRepo;
+    private TagRepository tagRepo;
+    
+    @Autowired
+    UserNameRepository userNameRepo;
     
     @Autowired
     private UploadService uploadService;
-     
+    
+    @Autowired
+    private UserService userService;
+    
     @GetMapping("/upload")
     public String testField() {
         return "test";
@@ -59,6 +69,8 @@ public class TestController {
         sg.setBase64str(string);
         if(privat){
            sg.setAccess(Song.Access.PRIVATE);
+           UserName usrnm = userNameRepo.findByName(userService.getUser().getUsername()).get();
+           sg.getFriendUserNames().add(usrnm);
         }else{
            sg.setAccess(Song.Access.PUBLIC);
         }

@@ -1,4 +1,19 @@
 <app-header></app-header>
+<form #form="ngForm" (submit)="onSubmit()">
+      <div class="form-group">
+        <label for="playlistname">Lejátszási listád neve:</label>
+        <input type="text"
+               required
+               name="playlistname" [(ngModel)]="model2.playlistname"
+               #playlistname="ngModel" />
+        <div *ngIf="playlistname.invalid && playlistname.touched" >
+          <span *ngIf="playlistname.errors.required">Kötelező mező</span>
+        </div>
+      </div>
+      
+      <input type="submit" value="Mentés" />
+      <input type="reset" value="Törlés" />
+    </form>
 <ul id="playlists" *ngFor="let playlist of authService.user.playlists">
     <li>{{getPlaylistName(playlist)}} <input type="Submit" value="Play" (click)="playPLaylist(playlist.songs);"></li>
 </ul>

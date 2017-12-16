@@ -1,8 +1,11 @@
 package ShaqAndSoldier.Copyfy.api;
 
+import ShaqAndSoldier.Copyfy.model.Playlist;
+import ShaqAndSoldier.Copyfy.model.Song;
 import ShaqAndSoldier.Copyfy.model.User;
 import static ShaqAndSoldier.Copyfy.model.User.Role.ADMIN;
 import static ShaqAndSoldier.Copyfy.model.User.Role.USER;
+import ShaqAndSoldier.Copyfy.service.SongService;
 import ShaqAndSoldier.Copyfy.service.UserService;
 import ShaqAndSoldier.Copyfy.service.annotations.Role;
 import ShaqAndSoldier.Copyfy.service.exceptions.UserNotValidException;
@@ -25,10 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserApiController {
 
     private final UserService userService;
-
+    private final SongService songService;
+    
     @Autowired
-    public UserApiController(UserService userService) {
+    public UserApiController(UserService userService, SongService songService) {
         this.userService = userService;
+        this.songService = songService;
     }
 
     @Role({USER, ADMIN})
@@ -95,5 +100,26 @@ public class UserApiController {
             return ResponseEntity.badRequest().build();
         }
         
+    }
+    
+    @PostMapping("/addplaylist")
+    public ResponseEntity<User> addToPlaylist(@RequestBody String newPlaylistName){
+        Playlist playlist = new Playlist();
+        playlist.setName(newPlaylistName);
+        User user = userService.getUserRepository().findByUsername(userService.getUser().getUsername()).get();
+        userService.getPlaylistRepo().save(playlist);
+        user.getPlaylists().add(playlist);
+        userService.getUserRepository().save(user);
+        return ResponseEntity.ok(user);
+    }
+    @PostMapping("/addtoplaylist")
+    public ResponseEntity<User> addToPlaylist(@RequestBody String songName, String playlistName){
+        Song sg = songService.getSongRepo().findByTitle(songName).get();
+        Playlist playlist = userService.getPlaylistRepo().findByName(playlistName).get();
+        User user = userService.getUserRepository().findByUsername(userService.getUser().getUsername()).get();
+        playlist.getSongs().add(sg);
+        userService.getPlaylistRepo().save(playlist);
+        userService.getUserRepository().save(user);
+        return ResponseEntity.ok(user);
     }
 }

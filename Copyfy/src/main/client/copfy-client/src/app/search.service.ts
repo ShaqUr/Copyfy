@@ -50,4 +50,15 @@ export class SearchService {
     }
     
   }
+
+  public searchSongs(tag:string): Promise<Song[]>{
+      const response$: Observable<any> = this.http.post('/api/songs/search', tag);
+      const responsePromise: Promise<any> = response$.toPromise();
+      return responsePromise
+        .then(res => res.json())
+        .then(resultSongs =>{
+          this.songs=resultSongs;
+          return resultSongs;
+        });
+  }
 }

@@ -3,4 +3,26 @@
   <ul *ngFor="let username of searchService.users">
     <li>{{username}} <a *ngIf="username!='Nincs ilyen felhasználó!'">létezik, oszd meg vele zenéid!</a></li>
   </ul>
+  <ul *ngFor="let song of searchService.songs">
+  <form #form="ngForm" (submit)="onSubmit()">
+    <li>
+      <input type="checkbox"
+            value = "song.title"
+            name ="songtitle"
+            [(ngModel)]="model.songtitle"
+            #songtitle="ngModel" >
+            {{song.title}}
+        <select >
+          <option *ngFor = "let playlist of authService.user.playlists" 
+            value="playlist.name"  
+            name ="playlist" 
+            [(ngModel)]="model.playlistname"
+            #playlistname="ngModel" >
+            {{playlist.name}}
+          </option>
+        </select>
+        <input type = "submit" value="Hozzá ad">
+    </li>
+   </form>
+  </ul>
 </div>

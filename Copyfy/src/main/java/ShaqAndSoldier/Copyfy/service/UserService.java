@@ -4,6 +4,9 @@ import ShaqAndSoldier.Copyfy.model.User;
 import ShaqAndSoldier.Copyfy.model.User.Role;
 import static ShaqAndSoldier.Copyfy.model.User.Role.USER;
 import static ShaqAndSoldier.Copyfy.model.User.Role.BANNED;
+import ShaqAndSoldier.Copyfy.model.UserName;
+import ShaqAndSoldier.Copyfy.repository.PlaylistRepository;
+import ShaqAndSoldier.Copyfy.repository.UserNameRepository;
 import ShaqAndSoldier.Copyfy.repository.UserRepository;
 import ShaqAndSoldier.Copyfy.service.exceptions.UserNotValidException;
 import ShaqAndSoldier.Copyfy.service.exceptions.UsernameOrEmailInUseException;
@@ -27,6 +30,10 @@ public class UserService {
     private UserRepository userRepository;
     private User user;
     
+    @Autowired
+    private UserNameRepository userNameRepository;
+    @Autowired
+    private PlaylistRepository playlistRepo;
     public void setLoggedIn(User userLogged){
         user=userRepository.findByUsername(userLogged.getUsername()).get();
     }
@@ -43,6 +50,9 @@ public class UserService {
         }else{
             user.setRole(USER);
             this.user = userRepository.save(user);
+            UserName userName = new UserName();
+            userName.setName(user.getUsername());
+            userNameRepository.save(userName);
             return user;
         }
     }

@@ -1,0 +1,23 @@
+<app-header></app-header>
+<head>
+  <script src="script.js"></script>
+</head>
+
+<p>Select a File to Load:</p>
+    <div>
+       <input id="inputFileToLoad" type="file" accept=".mp3,audio/*"/>
+    </div>
+    
+    <div>
+        Cím:<textarea id="cim" style="width:200;height:20" ></textarea>
+    </div> 
+    Tagek:<textarea id="textAreaFileContents" style="width:70;height:20" ></textarea>
+    <p id= "showtags"></p>
+    <label>Privát a zene? (ha nem, akkor ne csekkold be):
+      <input id="check" type="checkbox">
+    </label>
+
+    <div>
+            <button id="butten">Feltöltés!</button>
+    </div>
+     <script ng-repeat="script in scripts" ng-src="{{script.src}}"></script>

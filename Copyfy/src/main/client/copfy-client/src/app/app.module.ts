@@ -20,6 +20,7 @@ import { PlayerComponent } from './player/player.component';
 import { PlayerService } from 'app/player.service';
 import { ResultComponent } from './result/result.component';
 import { SettingsComponent } from './settings/settings.component';
+import { UploadComponent } from './upload/upload.component';
 
 const appRoutes : Routes = [
   {path: 'login', component: LoginComponent},
@@ -29,7 +30,8 @@ const appRoutes : Routes = [
   {path: 'user/playlists', component: PlaylistsComponent},
   {path: 'results', component: ResultComponent},
   {path: 'user/settings', component: SettingsComponent},
-  {path: '**', redirectTo: '/index'},
+  {path: 'upload', component: UploadComponent},
+  {path: '**', redirectTo: 'index'},
 ];
 
 @NgModule({
@@ -44,6 +46,7 @@ const appRoutes : Routes = [
     PlayerComponent,
     ResultComponent,
     SettingsComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,

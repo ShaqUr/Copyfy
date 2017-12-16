@@ -38,6 +38,10 @@ export class HeaderComponent implements OnInit {
           this.router.navigateByUrl('/results')
         });
     }else{
+      this.searchService.searchSongs(this.model.searchedExpression)
+        .then(() =>{
+          this.router.navigateByUrl('/results')
+        });
       console.log(this.model);
     }
   }

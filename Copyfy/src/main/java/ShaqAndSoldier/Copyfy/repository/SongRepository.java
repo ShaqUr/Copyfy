@@ -11,6 +11,7 @@ package ShaqAndSoldier.Copyfy.repository;
  */
 import ShaqAndSoldier.Copyfy.model.Song.Access;
 import ShaqAndSoldier.Copyfy.model.Song;
+import ShaqAndSoldier.Copyfy.model.Tag;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +19,7 @@ import java.util.Optional;
 
 @Repository
 public interface SongRepository extends CrudRepository<Song, String> {
-    Iterable<Song> findByTags(String tags);
+    Iterable<Song> findByTags(Tag tags);
 
     Optional<Song> findByTitle(String title);
 

@@ -13,13 +13,16 @@ import { Song } from 'app/song';
 })
 export class PlaylistsComponent implements OnInit {
   model: User;
+  model2: {playlistname: string};
   playlists: Playlist[];
+  @ViewChild('form') form
   constructor(
     private authService: AuthService,
     private playerService: PlayerService,
     private router: Router,
   ) {
     this.model = authService.user;
+    this.model2 = {playlistname : ""};
     this.playlists=this.model.playlists;
   }
 
@@ -32,5 +35,9 @@ export class PlaylistsComponent implements OnInit {
 
   playPLaylist(songs: Song[]){
     this.playerService.addSongs(songs);
+  }
+
+  onSubmit(){
+      this.authService.addNewPlaylist(this.model2.playlistname);
   }
 }

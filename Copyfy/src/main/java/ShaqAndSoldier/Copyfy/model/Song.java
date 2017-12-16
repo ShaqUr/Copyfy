@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ShaqAndSoldier.Copyfy.model;
 
 /**
  *
  * @author kjdavid <kjdavid96 at gmail.com>
  */
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -41,7 +37,10 @@ public class Song extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Access access;
-
+    
+    @ManyToMany(targetEntity = UserName.class)
+    private Set<UserName> friendUserNames = new HashSet();
+    
     public enum Access {
         PUBLIC, PRIVATE
     }
