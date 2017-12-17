@@ -1,8 +1,31 @@
 <app-header></app-header>
 <div id="result">
+  <form #form="ngForm" (submit)="onShare()">
   <ul *ngFor="let username of searchService.users">
-    <li>{{username}} <a *ngIf="username!='Nincs ilyen felhasználó!'">létezik, oszd meg vele zenéid!</a></li>
+    <li>{{username}} <a *ngIf="username!='Nincs ilyen felhasználó!'">létezik, oszd meg vele zenéid!</a>
+        <input type="radio"
+        value = {{username}}
+        name ="username"
+        [(ngModel)]="model2.username"
+        #songName="ngModel" >
+
+
+      <select
+        name ="songName"
+        [(ngModel)]="model2.songName"
+        #songName="ngModel"
+      >
+        <option *ngFor = "let privatesong of authService.privatesongs"
+
+          value = {{privatesong.title}}
+          selected="selected">
+          {{privatesong.title}}
+        </option>
+    </select>
+    </li>
+    <input type = "submit" value="Megosztás!">
   </ul>
+  </form>
   <form #form="ngForm" (submit)="onSubmit()">
     <ul *ngFor="let song of searchService.songs">
       <li>
@@ -17,8 +40,8 @@
               [(ngModel)]="model.playlistName"
               #playlistName="ngModel"
           >
-            <option *ngFor = "let playlist of authService.user.playlists" 
-              value = {{playlist.name}} 
+            <option *ngFor = "let playlist of authService.user.playlists"
+              value = {{playlist.name}}
               selected="selected">
               {{playlist.name}}
             </option>

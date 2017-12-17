@@ -48,7 +48,7 @@ export class SearchService {
           return resultUsers;
         });
     }
-    
+
   }
 
   public searchSongs(tag:string): Promise<Song[]>{
@@ -61,4 +61,5 @@ export class SearchService {
           return resultSongs;
         });
   }
+
 }

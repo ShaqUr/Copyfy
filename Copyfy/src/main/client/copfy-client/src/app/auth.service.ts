@@ -3,11 +3,12 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from './user';
+import { Song } from './song';
 
 @Injectable()
 export class AuthService {
   user: User;
-
+  privatesongs:Song[];
   private banned: boolean;
   constructor(
     private http: Http,
@@ -85,5 +86,27 @@ export class AuthService {
         this.user = loggedInUser;
         return loggedInUser;
     });
+  }
+
+  public privateSongs(user:User):Promise<Song[]>{
+    const response$: Observable<any> = this.http.post('/api/songs/private', this.user);
+    const responsePromise: Promise<any> = response$.toPromise();
+    return responsePromise
+      .then(res => res.json())
+      .then(resultSongs =>{
+        this.privatesongs=resultSongs;
+        return resultSongs;
+      });
+  }
+
+  public share(us:string, sn:string){
+    console.log("a felhasznalo neve: " + us);
+    let model={
+      userName: us,
+      songName: sn,
+    };
+    console.log(model.userName);
+    const response$: Observable<any> = this.http.post('/api/songs/share', model);
+    const responsePromise: Promise<any> = response$.toPromise();
   }
 }

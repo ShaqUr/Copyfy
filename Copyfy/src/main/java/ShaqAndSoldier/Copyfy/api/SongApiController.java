@@ -7,12 +7,14 @@ import ShaqAndSoldier.Copyfy.model.User.Role;
 import ShaqAndSoldier.Copyfy.model.UserName;
 import ShaqAndSoldier.Copyfy.service.SongService;
 import ShaqAndSoldier.Copyfy.service.UserService;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -81,6 +83,32 @@ public class SongApiController {
             }
         }
         return ResponseEntity.ok(songsAccesableToUser);
+    }
+    
+    @PostMapping("/private")
+    public ResponseEntity<Iterable<Song>> returnPrivates(@RequestBody User user){
+        System.out.println(songService.getSongRepo().findByOwner(user.getUsername()));
+        LinkedList<Song> privateSongs = new LinkedList<>();
+        songService.getSongRepo().findByOwner(user.getUsername());
+        for(Song song : songService.getSongRepo().findByOwner(user.getUsername())){
+            if(song.getAccess().equals(Song.Access.PRIVATE)){
+                privateSongs.add(song);
+            }
+        }
+        return ResponseEntity.ok(privateSongs);
+    }
+    
+    static class Share{
+        public String userName;
+        public String songName;
+    }
+    
+    @PostMapping("/share")
+    public boolean share(@RequestBody Share share){
+        //System.out.println(share.userName);
+        //System.out.println(songService.getUserNameRepo().findByName(share.userName).get());
+        songService.getSongRepo().findByTitle(share.songName).get().getFriendUserNames().add(songService.getUserNameRepo().findByName(share.userName).get());
+        return true;
     }
     
 }

@@ -37,6 +37,10 @@ export class HeaderComponent implements OnInit {
         .then(() =>{
           this.router.navigateByUrl('/results')
         });
+        this.authService.privateSongs(this.authService.user)
+        .then(() =>{
+          this.router.navigateByUrl('/results')
+        });
     }else{
       this.searchService.searchSongs(this.model.searchedExpression)
         .then(() =>{
