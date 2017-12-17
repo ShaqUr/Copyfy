@@ -78,9 +78,9 @@ public class SongApiController {
             UserName username = userService.getUserNameRepository().findByName(userService.getUser().getUsername()).get();
             if(sg.getAccess().equals(Song.Access.PUBLIC)){
                 songsAccesableToUser.add(sg);
-            }else if(sg.getFriendUserNames().contains(username)){
-                songsAccesableToUser.add(sg);
-            }
+            }else if(sg.getFriendUserNames().contains(username) || sg.getOwner().equals(username.getName())){
+                    songsAccesableToUser.add(sg);
+            }   
         }
         return ResponseEntity.ok(songsAccesableToUser);
     }
@@ -104,11 +104,13 @@ public class SongApiController {
     }
     
     @PostMapping("/share")
-    public boolean share(@RequestBody Share share){
+    public Song share(@RequestBody Share share){
         //System.out.println(share.userName);
-        //System.out.println(songService.getUserNameRepo().findByName(share.userName).get());
-        songService.getSongRepo().findByTitle(share.songName).get().getFriendUserNames().add(songService.getUserNameRepo().findByName(share.userName).get());
-        return true;
+        System.out.println(songService.getUserNameRepo().findByName(share.userName).get());
+        Song sg = songService.getSongRepo().findByTitle(share.songName).get();
+        sg.getFriendUserNames().add(songService.getUserNameRepo().findByName(share.userName).get());
+        songService.getSongRepo().save(sg);
+        return songService.getSongRepo().findByTitle(share.songName).get();
     }
     
 }
