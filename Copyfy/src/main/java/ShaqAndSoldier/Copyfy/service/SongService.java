@@ -47,6 +47,7 @@ public class SongService {
 
     public void delete(Song s) {
         s.getTags().removeAll(s.getTags());
+        s.getFriendUserNames().removeAll(s.getFriendUserNames());
         Iterator<Playlist> pI = playlistRepo.findAll().iterator();
         Playlist pl;
         while(pI.hasNext()){
