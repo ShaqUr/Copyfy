@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @RequestMapping("/test")
-public class TestController {
+public class UploadController {
     @Autowired
     SongRepository sngRepo;
     Song sg;

@@ -34,6 +34,7 @@ public class UserService {
     private UserNameRepository userNameRepository;
     @Autowired
     private PlaylistRepository playlistRepo;
+    
     public void setLoggedIn(User userLogged){
         user=userRepository.findByUsername(userLogged.getUsername()).get();
     }
