@@ -2,7 +2,6 @@ package ShaqAndSoldier.Copyfy;
 
 import ShaqAndSoldier.Copyfy.repository.SongRepository;
 import ShaqAndSoldier.Copyfy.service.StorageProperties;
-import ShaqAndSoldier.Copyfy.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,12 +18,5 @@ public class CopyfyApplication {
 		SpringApplication.run(CopyfyApplication.class, args);
 	}
         
-        @Bean
-        CommandLineRunner init(StorageService storageService) {
-            return (args) -> {
-                storageService.deleteAll();
-                storageService.init();
-            };
-        }
         
 }
